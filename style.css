@@ -899,9 +899,6 @@ img { display: block; }
 }
 .skill-row:hover .skill-desc { color: var(--color-text-muted); }
 
-/* Figma block */
-.figma-block { }
-
 .figma-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
