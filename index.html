@@ -3,22 +3,20 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>Promise Kolade — Refined Editorial Scattered Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Promise Kolade — Systems programmer, compiler developer, and future robotics engineer. Portfolio showcasing NEXUS compiler, Figma designs, and technical expertise in C++, LLVM, and low-level software." />
+  <title>Promise Kolade — Systems Programmer & Compiler Developer</title>
 
-  <!-- Modern Typography System -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap"
-    rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
 </head>
 
 <body>
-  <!-- Film Grain Noise Texture Overlay -->
-  <svg class="noise-svg" style="display: none;">
+
+  <!-- Film Grain Noise -->
+  <svg class="noise-svg" style="display:none;">
     <filter id="noise-filter">
       <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch" />
       <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.05 0" />
@@ -26,314 +24,892 @@
   </svg>
   <div class="noise-overlay"></div>
 
-  <!-- Dynamic SVG HUD Connection Overlay -->
-  <svg id="hud-svg" xmlns="http://www.w3.org/2000/svg">
-    <!-- Active lines and targets will be rendered dynamically by JavaScript -->
-  </svg>
+  <!-- Fixed HUD SVG Overlay (hero connections) -->
+  <svg id="hud-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
 
-  <!-- Interactive Portrait Background System (Positioned at z-index 1) -->
-  <div class="portrait-container">
-    <img src="profile2.jpg" class="portrait-img portrait-base" alt="Grayscale portrait background">
-    <img src="profile2.jpg" class="portrait-img portrait-color" alt="Color portrait spotlight layer">
-    <div class="portrait-fade-overlay"></div>
-  </div>
+  <!-- Fixed Top Header -->
+  <header class="hud-header" id="site-header">
+    <div class="hud-status">
+      <span class="pulse-dot"></span>
+      <span class="hud-code">SYS.STATUS: PORTFOLIO_ACTIVE // SYSTEMS_ENGINEER_ONLINE</span>
+    </div>
+    <div class="hud-controls">
+      <button id="sfx-toggle" aria-label="Toggle UI Sound Effects" class="hud-btn sfx-btn">
+        <svg class="sfx-icon sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+        <svg class="sfx-icon sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <line x1="23" y1="9" x2="17" y2="15"></line>
+          <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+        <span class="hud-btn-text">AUDIO: OFF</span>
+      </button>
+      <button onclick="window.print()" class="hud-btn print-btn" aria-label="Download PDF Resume">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="print-icon">
+          <polyline points="6 9 6 2 18 2 18 9"></polyline>
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+          <rect x="6" y="14" width="12" height="8"></rect>
+        </svg>
+        <span>PDF RECORD</span>
+      </button>
+    </div>
+  </header>
 
-  <div class="container">
-    <!-- System Controls & Navigation HUD -->
-    <header class="hud-header">
-      <div class="hud-status">
-        <span class="pulse-dot"></span>
-        <span class="hud-code">SYS.STATUS: COMPRESSED_POSTER // DIRECT_PORTAL_ACTIVE</span>
+  <!-- Fixed Left Nav Rail -->
+  <nav class="nav-rail" id="nav-rail" aria-label="Page sections navigation">
+    <div class="nav-track"></div>
+    <a href="#hero"     class="nav-item active" data-section="hero"     id="nav-hero">
+      <span class="nav-dot"></span><span class="nav-num">01</span><span class="nav-label">HERO</span>
+    </a>
+    <a href="#about"    class="nav-item" data-section="about"    id="nav-about">
+      <span class="nav-dot"></span><span class="nav-num">02</span><span class="nav-label">ABOUT</span>
+    </a>
+    <a href="#projects" class="nav-item" data-section="projects" id="nav-projects">
+      <span class="nav-dot"></span><span class="nav-num">03</span><span class="nav-label">PROJECTS</span>
+    </a>
+    <a href="#stack"    class="nav-item" data-section="stack"    id="nav-stack">
+      <span class="nav-dot"></span><span class="nav-num">04</span><span class="nav-label">STACK</span>
+    </a>
+    <a href="#journey"  class="nav-item" data-section="journey"  id="nav-journey">
+      <span class="nav-dot"></span><span class="nav-num">05</span><span class="nav-label">JOURNEY</span>
+    </a>
+    <a href="#contact"  class="nav-item" data-section="contact"  id="nav-contact">
+      <span class="nav-dot"></span><span class="nav-num">06</span><span class="nav-label">CONTACT</span>
+    </a>
+  </nav>
+
+  <!-- ═══════════════════ MAIN SCROLL CONTAINER ═══════════════════ -->
+  <main class="scroll-main" id="scroll-main">
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         01 / HERO
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <section class="page-section hero-section" id="hero" data-section-id="hero">
+
+      <!-- Portrait System (locked to hero) -->
+      <div class="portrait-container" id="portrait-container">
+        <img src="profile2.jpg" class="portrait-img portrait-base" alt="Promise Kolade grayscale portrait">
+        <img src="profile2.jpg" class="portrait-img portrait-color" alt="Promise Kolade color portrait spotlight">
+        <div class="portrait-fade-overlay"></div>
       </div>
-      <div class="hud-controls">
-        <!-- Audio SFX Toggle Switch -->
-        <button id="sfx-toggle" aria-label="Toggle UI Sound Effects" class="hud-btn sfx-btn">
-          <svg class="sfx-icon sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-          </svg>
-          <svg class="sfx-icon sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            style="display: none;">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <line x1="23" y1="9" x2="17" y2="15"></line>
-            <line x1="17" y1="9" x2="23" y2="15"></line>
-          </svg>
-          <span class="hud-btn-text">AUDIO: OFF</span>
-        </button>
 
-        <!-- Optimized PDF Print Button -->
-        <button onclick="window.print()" class="hud-btn print-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="print-icon">
-            <polyline points="6 9 6 2 18 2 18 9"></polyline>
-            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-            <rect x="6" y="14" width="12" height="8"></rect>
-          </svg>
-          <span>PDF RECORD</span>
-        </button>
-      </div>
-    </header>
+      <!-- Radial vignette behind portrait -->
+      <div class="hero-vignette" aria-hidden="true"></div>
 
-    <!-- MAIN SCATTERED POSTER CANVAS -->
-    <main class="poster-canvas">
+      <!-- Hero Content (left side) -->
+      <div class="hero-content">
+        <div class="hero-eyebrow" data-animate>
+          <span class="eyebrow-bracket">[</span>
+          <span class="eyebrow-text">SYS/ENG &nbsp;·&nbsp; COMPILER_DEV &nbsp;·&nbsp; PORTFOLIO_v2.0</span>
+          <span class="eyebrow-bracket">]</span>
+        </div>
 
-      <!-- HERO AREA: Bold stacked typography at Top-Left -->
-      <section class="hero-name">
-        <h1 class="main-title">
+        <h1 class="main-title" data-animate>
           <span class="title-outline">PROMISE</span>
           <span class="title-solid">KOLADE</span>
         </h1>
-        <div class="role-badge">
-          <span class="role-arrow">→</span>
-          <span class="role-text">SOFTWARE DEVELOPER</span>
-        </div>
-      </section>
 
-      <!-- 01 / CREATIVE DNA CARD: Overlaying the bottom-right torso -->
-      <section class="card dna-card" data-hotspot="about" tabindex="0">
-        <div class="card-borders"></div>
-        <div class="card-header">
-          <span class="card-num">01 / DNA</span>
-          <h3>CREATIVE DNA</h3>
+        <div class="role-tags" data-animate>
+          <span class="role-tag">Systems Programmer</span>
+          <span class="role-divider">·</span>
+          <span class="role-tag">Compiler Developer</span>
+          <span class="role-divider">·</span>
+          <span class="role-tag accent">Future Robotics Engineer</span>
         </div>
-        <div class="card-body">
-          <div class="stats-row">
-            <div class="stat-item">
-              <span class="stat-number">3+</span>
-              <span class="stat-label">YEARS DEV</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">100K+</span>
-              <span class="stat-label">LINES C++</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">98%</span>
-              <span class="stat-label">SPEED</span>
-            </div>
-          </div>
-          <p class="summary-paragraph">
-            Systems engineer focused on compilers, performance memory layouts, and high-concurrency backends running at
-            extreme metal limits.
-          </p>
 
-          <!-- Relative Fade-In Shutter details (Displays alongside main text) -->
-          <div class="card-detail-shutter">
-            <span class="shutter-num">// DNA SPECIFICATION</span>
-            <p>Developing <strong>NEXUS</strong> — a universal compilation engine generating cross-platform logic via
-              zero-overhead dynamic translations.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- 02 / CREATIVE JOURNEY CARD: Floating mid-left -->
-      <section class="card journey-card" data-hotspot="education" tabindex="0">
-        <div class="card-borders"></div>
-        <div class="card-header">
-          <span class="card-num">02 / HISTORY</span>
-          <h3>CREATIVE JOURNEY</h3>
-        </div>
-        <div class="card-body">
-          <ul class="timeline">
-            <li class="timeline-item">
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <span class="timeline-date">2024 — PRESENT</span>
-                <h4>Nile University of Nigeria</h4>
-                <p class="timeline-subtitle">Software Engineering Degree</p>
-              </div>
-            </li>
-            <li class="timeline-item">
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <span class="timeline-date">2023 — 2024</span>
-                <h4>Codecademy Systems</h4>
-                <p class="timeline-subtitle">C++ Core Architectures</p>
-              </div>
-            </li>
-          </ul>
-
-          <!-- Relative Fade-In Shutter details (Displays alongside main text) -->
-          <div class="card-detail-shutter">
-            <span class="shutter-num">// INSTRUCTION RESEARCH</span>
-            <p>Active research in AST traversal models, low-level linkers, manual memory allocation schemes, and thread
-              scheduling parameters.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- 03 / THE MEGA STACK CARD: Floating bottom-left -->
-      <section class="card stack-card" data-hotspot="projects" tabindex="0">
-        <div class="card-borders"></div>
-        <div class="card-header">
-          <span class="card-num">03 / STACK</span>
-          <h3>THE MEGA STACK</h3>
-        </div>
-        <div class="card-body">
-          <div class="tech-grid">
-            <div class="tech-item" title="C++ Engine">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="tech-svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                  d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-              </svg>
-              <span>C++ Core</span>
-            </div>
-            <div class="tech-item" title="LLVM & Translators">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="tech-svg">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                  d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83">
-                </path>
-              </svg>
-              <span>LLVM</span>
-            </div>
-            <div class="tech-item" title="Python Scripting">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="tech-svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                  d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"></path>
-              </svg>
-              <span>Python</span>
-            </div>
-            <div class="tech-item" title="Java Platforms">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="tech-svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                  d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z">
-                </path>
-              </svg>
-              <span>Java JVM</span>
-            </div>
-            <div class="tech-item" title="Git Infrastructure">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="tech-svg">
-                <circle cx="18" cy="18" r="3"></circle>
-                <circle cx="6" cy="6" r="3"></circle>
-                <circle cx="6" cy="18" r="3"></circle>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                  d="M6 9v6M9 6h6a3 3 0 0 1 3 3v3"></path>
-              </svg>
-              <span>Git Flow</span>
-            </div>
-            <div class="tech-item" title="POSIX / Linux kernel">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="tech-svg">
-                <rect x="3" y="3" width="18" height="18" rx="2" stroke-width="1.5"></rect>
-                <path stroke-linecap="round" stroke-width="1.5" d="M21 12H3M12 3v18"></path>
-              </svg>
-              <span>Linux</span>
-            </div>
-          </div>
-
-          <!-- Relative Fade-In Shutter details (Displays alongside main text) -->
-          <div class="card-detail-shutter">
-            <div class="hobbies-chips">
-              <span class="chip">GAMING</span>
-              <span class="chip">VIOLIN</span>
-              <span class="chip">SCI-FI READS</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 04 / COMMUNICATION PORTAL CARD: Floating bottom-center -->
-      <section class="card contact-card" data-hotspot="contact" tabindex="0">
-        <div class="card-borders"></div>
-        <div class="card-header">
-          <span class="card-num">04 / PORTAL</span>
-          <h3>COMMUNICATION HUB</h3>
-        </div>
-        <div class="card-body">
-          <a href="https://github.com/Peekay08" target="_blank" class="github-portal-box" rel="noopener">
-            <div class="portal-logo">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="portal-svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                  d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-                </path>
-              </svg>
-            </div>
-            <div class="portal-details">
-              <span class="portal-title">GITHUB CLOUD CONNECTION</span>
-              <span class="portal-link">github.com/Peekay08</span>
-            </div>
+        <div class="hero-ctas" data-animate>
+          <a href="#projects" class="cta-primary" id="view-projects-cta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+              <polyline points="13 2 13 9 20 9"></polyline>
+            </svg>
+            VIEW PROJECTS
           </a>
+          <button onclick="window.print()" class="cta-secondary" id="hero-download-cta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            DOWNLOAD CV
+          </button>
+        </div>
+      </div><!-- /hero-content -->
 
-          <div class="contact-details">
-            <div class="contact-row">
-              <span class="contact-label">TEL //</span>
-              <span class="contact-value">+234 902 484 0717</span>
-            </div>
-            <div class="contact-row">
-              <span class="contact-label">MAIL //</span>
-              <span class="contact-value">04ukiyo14@gmail.com</span>
+      <!-- HUD Info Cluster (hotspot cards in hero) -->
+      <div class="hero-hud-cluster" aria-label="Quick facts">
+        <div class="hud-info-card card" data-hotspot="skills" tabindex="0" id="hud-card-skills">
+          <div class="card-borders"></div>
+          <span class="hud-info-label">// FOCUS AREAS</span>
+          <p class="hud-info-text">Compilers · OS · Cybersecurity · Robotics · Game Dev</p>
+        </div>
+        <div class="hud-info-card card" data-hotspot="about" tabindex="0" id="hud-card-status">
+  <div class="card-borders"></div>
+  <span class="hud-info-label">// CURRENTLY</span>
+  <p class="hud-info-text">
+    Building NEXUS IR layer &nbsp;·&nbsp;
+    Reading <em>Crafting Interpreters</em> &nbsp;·&nbsp;
+    B.Sc. SWE @ NUN
+  </p>
+</div>
+        <div class="hud-info-card card" data-hotspot="projects" tabindex="0" id="hud-card-project">
+          <div class="card-borders"></div>
+          <span class="hud-info-label">// FLAGSHIP PROJECT</span>
+          <p class="hud-info-text">NEXUS — Universal Compilation Engine (C++ / LLVM)</p>
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="scroll-indicator" aria-hidden="true">
+        <span class="scroll-line"></span>
+        <span class="scroll-text">SCROLL</span>
+      </div>
+
+    </section><!-- /hero -->
+
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         02 / ABOUT ME
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <section class="page-section about-section" id="about" data-section-id="about">
+      <div class="section-inner">
+
+        <div class="section-header" data-animate>
+          <span class="section-num">02 / ABOUT</span>
+          <h2 class="section-title">WHO I AM</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="about-grid">
+          <!-- Bio -->
+          <div class="about-bio" data-animate>
+            <p class="bio-text">
+              I'm <strong>Promise Kolade</strong>, a second-year Software Engineering student at Nile University of Nigeria. My passion lives in systems programming — the low-level layer where software meets hardware, where every byte matters and performance is law.
+            </p>
+            <p class="bio-text">
+              I'm currently building <strong>NEXUS</strong>, a universal compilation engine that translates source programs into platform-independent intermediate representations and produces native applications across multiple operating systems. It's my most ambitious project and deepest learning ground.
+            </p>
+            <p class="bio-text">
+              Beyond compilers, I'm equally drawn to <strong>cybersecurity</strong>, <strong>robotics</strong>, and <strong>game development</strong> — fields converging at systems-level software and physical-world impact. I also design interfaces in Figma, write in English and conversational Mandarin, and play violin when the code won't compile.
+            </p>
+
+            <div class="career-vision" data-animate>
+              <span class="vision-label">// CAREER VISION</span>
+              <p class="vision-text">
+                My long-term goal is to build software that bridges <strong>operating systems</strong>, <strong>cyber-physical systems</strong>, <strong>robotics</strong>, and <strong>next-generation development platforms</strong> — tools that don't just run on machines, but fundamentally change what machines can do.
+              </p>
             </div>
           </div>
 
-          <!-- Relative Fade-In Shutter details (Displays alongside main text) -->
-          <div class="card-detail-shutter">
-            <span class="status-note">// SECURE COMMS ACTIVE. Available for system engineering, compilers, and
-              performance backends.</span>
+          <!-- Honest Stats -->
+          <div class="about-stats" data-animate>
+            <div class="honest-stat">
+              <span class="honest-num">3+</span>
+              <div class="honest-desc">
+                <strong>Years of Active Development</strong>
+                <span>Primarily C++ and systems-level programming</span>
+              </div>
+            </div>
+            <div class="honest-stat">
+              <span class="honest-num">C++</span>
+              <div class="honest-desc">
+                <strong>Primary Language</strong>
+                <span>Used daily — compiler work, data structures, OS experiments</span>
+              </div>
+            </div>
+            <div class="honest-stat">
+              <span class="honest-num">NUN</span>
+              <div class="honest-desc">
+                <strong>Nile University of Nigeria</strong>
+                <span>B.Sc. Software Engineering · 2024 — Present</span>
+              </div>
+            </div>
+            <div class="honest-stat">
+              <span class="honest-num">2</span>
+              <div class="honest-desc">
+                <strong>Languages Spoken</strong>
+                <span>English (fluent) · Mandarin Chinese (conversational)</span>
+              </div>
+            </div>
+
+            <!-- Quick interest chips -->
+            <div class="about-chips-row">
+              <span class="about-chip">🎮 Gaming</span>
+              <span class="about-chip">🎻 Violin</span>
+              <span class="about-chip">📚 Sci-Fi Reads</span>
+              <span class="about-chip">🤖 Robotics</span>
+            </div>
           </div>
         </div>
-      </section>
 
-      <!-- 05 / EDUCATION: Raw Text timeline floating directly in Top-Right -->
-      <section class="raw-hud-list education-raw-list" data-hotspot="education" tabindex="0">
-        <h3 class="raw-list-title">EDUCATION</h3>
-        <ul class="raw-list-items">
-          <li class="raw-item">
-            <span class="raw-bullet">■</span>
-            <div class="raw-text">
-              <strong>Nile University of Nigeria</strong>
-              <p>B.Sc. Software Engineering (2024 - Present)</p>
-            </div>
-          </li>
-          <li class="raw-item">
-            <span class="raw-bullet">■</span>
-            <div class="raw-text">
-              <strong>Codecademy Systems</strong>
-              <p>C++ Certified Programmer (2023 - 2024)</p>
-            </div>
-          </li>
-          <li class="raw-item">
-            <span class="raw-bullet">■</span>
-            <div class="raw-text">
-              <strong>Astute Montessori Schools</strong>
-              <p>Secondary School Graduate (2018 - 2024)</p>
-            </div>
-          </li>
-        </ul>
-      </section>
+      </div>
+    </section><!-- /about -->
 
-      <!-- 06 / SKILL LEVEL: Raw Text Matrix floating in Middle-Right -->
-      <section class="raw-hud-list skills-raw-list" data-hotspot="skills" tabindex="0">
-        <h3 class="raw-list-title green-accent">SKILL LEVEL</h3>
-        <ul class="raw-list-items font-space">
-          <li class="raw-item-spaced">
-            <span class="label">Systems & C++ Core</span>
-            <span class="value green-glow">Advanced / 95%</span>
-          </li>
-          <li class="raw-item-spaced">
-            <span class="label">Algorithmic Logic</span>
-            <span class="value">Mastery / 90%</span>
-          </li>
-          <li class="raw-item-spaced">
-            <span class="label">LLVM Compiler Traversal</span>
-            <span class="value">Proficient / 78%</span>
-          </li>
-          <li class="raw-item-spaced">
-            <span class="label">English Communication</span>
-            <span class="value green-glow">Fluent / 98%</span>
-          </li>
-          <li class="raw-item-spaced">
-            <span class="label">Mandarin (Chinese)</span>
-            <span class="value">Conversational / 80%</span>
-          </li>
-          <li class="raw-item-spaced">
-            <span class="label">Git & Workflows</span>
-            <span class="value">Advanced / 85%</span>
-          </li>
-        </ul>
-      </section>
 
-    </main>
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         03 / FEATURED PROJECTS
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <section class="page-section projects-section" id="projects" data-section-id="projects">
+      <div class="section-inner">
+
+        <div class="section-header" data-animate>
+          <span class="section-num">03 / PROJECTS</span>
+          <h2 class="section-title">FEATURED WORK</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="projects-grid">
+
+          <!-- NEXUS — featured -->
+          <article class="project-card project-featured" data-animate id="project-nexus">
+  <div class="project-top-row">
+    <div class="project-status status-active">
+      <span class="status-dot"></span>ACTIVE DEVELOPMENT
+    </div>
   </div>
+ 
+  <h3 class="project-name">NEXUS</h3>
+  <p class="project-tagline">Universal Compilation Engine</p>
+  <p class="project-desc">
+    A compiler platform capable of translating source programs into platform-independent intermediate representations, then targeting native code across Linux, Windows, and macOS. Encompasses lexing, parsing, AST generation, semantic analysis, IR design, and a custom VM execution layer.
+  </p>
+ 
+  <!-- Compiler Pipeline Diagram -->
+  <div class="nexus-pipeline" aria-label="NEXUS compiler pipeline">
+    <span class="challenges-label">// COMPILER PIPELINE</span>
+    <div class="pipeline-stages">
+      <div class="pipeline-stage" data-stage="frontend">
+        <span class="stage-label">SOURCE</span>
+        <span class="stage-name">Lexer</span>
+        <span class="stage-sub">Tokenisation</span>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-stage" data-stage="frontend">
+        <span class="stage-label">FRONTEND</span>
+        <span class="stage-name">Parser</span>
+        <span class="stage-sub">Grammar + recovery</span>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-stage" data-stage="middle">
+        <span class="stage-label">ANALYSIS</span>
+        <span class="stage-name">AST + Sema</span>
+        <span class="stage-sub">Type checking</span>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-stage" data-stage="middle">
+        <span class="stage-label">IR</span>
+        <span class="stage-name">NEXUS IR</span>
+        <span class="stage-sub">Custom + LLVM</span>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-stage" data-stage="backend">
+        <span class="stage-label">BACKEND</span>
+        <span class="stage-name">Codegen</span>
+        <span class="stage-sub">x86 · ARM · WASM</span>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-stage" data-stage="output">
+        <span class="stage-label">OUTPUT</span>
+        <span class="stage-name">Native bin</span>
+        <span class="stage-sub">Linux · Win · macOS</span>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Engineering Decisions -->
+  <div class="project-challenges nexus-decisions">
+    <span class="challenges-label">// KEY ENGINEERING DECISIONS</span>
+    <ul class="challenge-list">
+      <li><strong>Why LLVM?</strong> Mature optimisation passes and multi-target backend — avoids reinventing register allocation and instruction selection from scratch.</li>
+      <li><strong>Why a custom IR?</strong> LLVM IR is too low-level for early analysis passes; NEXUS IR sits above it, preserving type and scope information longer.</li>
+      <li><strong>Parser error recovery</strong> — panic-mode synchronisation on statement boundaries keeps parsing after syntax errors instead of aborting.</li>
+      <li><strong>Manual memory management</strong> — arena allocators per compilation unit; no GC overhead during compile time.</li>
+    </ul>
+  </div>
+ 
+  <!-- Dev Log Timeline -->
+  <div class="nexus-devlog">
+    <span class="challenges-label">// DEVELOPMENT LOG</span>
+    <div class="devlog-track">
+      <div class="devlog-item done">
+        <span class="devlog-dot"></span>
+        <span class="devlog-date">2024</span>
+        <span class="devlog-event">Project started · Language spec drafted</span>
+      </div>
+      <div class="devlog-item done">
+        <span class="devlog-dot"></span>
+        <span class="devlog-date">Early 2025</span>
+        <span class="devlog-event">Lexer complete · Full token stream output</span>
+      </div>
+      <div class="devlog-item done">
+        <span class="devlog-dot"></span>
+        <span class="devlog-date">Mid 2025</span>
+        <span class="devlog-event">Recursive-descent parser with error recovery</span>
+      </div>
+      <div class="devlog-item done">
+        <span class="devlog-dot"></span>
+        <span class="devlog-date">Late 2025</span>
+        <span class="devlog-event">AST generation · Semantic analysis pass begun</span>
+      </div>
+      <div class="devlog-item active">
+        <span class="devlog-dot"></span>
+        <span class="devlog-date">2026</span>
+        <span class="devlog-event">IR design + LLVM backend integration — in progress</span>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="project-stack-chips" style="margin-top:1rem;">
+    <span class="stack-chip">C++</span>
+    <span class="stack-chip">LLVM</span>
+    <span class="stack-chip">CMake</span>
+    <span class="stack-chip">AST Design</span>
+    <span class="stack-chip">IR / VM</span>
+  </div>
+</article>
+
+          <!-- Portfolio -->
+          <article class="project-card" data-animate id="project-portfolio">
+            <div class="project-top-row">
+              <div class="project-status status-complete">
+                <span class="status-dot"></span>COMPLETE
+              </div>
+              <a href="https://github.com/Peekay08" target="_blank" rel="noopener" class="project-gh-link" aria-label="View Portfolio on GitHub">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                GITHUB →
+              </a>
+            </div>
+            <h3 class="project-name">PORTFOLIO v2.0</h3>
+            <p class="project-tagline">Interactive Editorial Portfolio Website</p>
+            <p class="project-desc">
+              This site — built entirely from scratch with no frameworks. Features procedural Web Audio synthesis, dynamic SVG HUD routing, spotlight image masking with physics interpolation, 3D tilt interactions, scroll-triggered animations, and a complete cyberpunk editorial design system.
+            </p>
+            <div class="project-stack-chips">
+              <span class="stack-chip">HTML5</span>
+              <span class="stack-chip">CSS3</span>
+              <span class="stack-chip">Vanilla JS</span>
+              <span class="stack-chip">Web Audio API</span>
+              <span class="stack-chip">SVG Animation</span>
+            </div>
+          </article>
+
+          <article class="project-card" data-animate id="project-cpp-exercises">
+            <div class="project-top-row">
+              <div class="project-status status-ongoing">
+                <span class="status-dot"></span>ONGOING
+              </div>
+              <a href="https://github.com/Peekay08" target="_blank" rel="noopener" class="project-gh-link" aria-label="View C++ exercises on GitHub">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                  GITHUB →
+              </a>
+            </div>
+            <h3 class="project-name">C++ PROGRAMS</h3>
+            <p class="project-tagline">Systems & Data Structures Experiments</p>
+            <p class="project-desc">
+              A growing collection of C++ programs built while deepening systems knowledge — data structures from scratch, algorithm implementations, memory management experiments, and low-level I/O programs. These are the building blocks behind NEXUS.
+            </p>
+            <div class="project-stack-chips">
+              <span class="stack-chip">C++</span>
+              <span class="stack-chip">Data Structures</span>
+              <span class="stack-chip">Algorithms</span>
+              <span class="stack-chip">Memory Mgmt</span>
+            </div>
+          </article>
+ 
+            <!-- GitHub Stats Card -->
+            <article class="project-card github-stats-card" data-animate id="project-github">
+              <div class="project-top-row">
+                <div class="project-status status-active">
+                  <span class="status-dot"></span>LIVE
+                </div>
+                <a href="https://github.com/Peekay08" target="_blank" rel="noopener" class="project-gh-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                  GITHUB →
+                </a>
+              </div>
+              <h3 class="project-name">GITHUB</h3>
+              <p class="project-tagline">github.com/Peekay08</p>
+ 
+              <div class="gh-stats-grid" id="gh-stats-grid">
+                <div class="gh-stat-box">
+                  <span class="gh-stat-num" id="gh-repos">—</span>
+                  <span class="gh-stat-label">Repositories</span>
+                </div>
+                <div class="gh-stat-box">
+                  <span class="gh-stat-num" id="gh-followers">—</span>
+                  <span class="gh-stat-label">Followers</span>
+                </div>
+                <div class="gh-stat-box">
+                  <span class="gh-stat-num" id="gh-following">—</span>
+                  <span class="gh-stat-label">Following</span>
+              </div>
+          </div>
+ 
+            <div class="gh-repos-list" id="gh-repos-list">
+              <span class="challenges-label">// PINNED / RECENT REPOS</span>
+              <div class="gh-repo-items" id="gh-repo-items">
+                <div class="gh-loading">
+                  <span class="pulse-dot"></span>
+                  <span>Fetching repositories…</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Academic -->
+          <article class="project-card" data-animate id="project-academic">
+            <div class="project-top-row">
+              <div class="project-status status-ongoing">
+                <span class="status-dot"></span>ONGOING
+              </div>
+              <a href="https://github.com/Peekay08" target="_blank" rel="noopener" class="project-gh-link" aria-label="View Academic projects on GitHub">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                GITHUB →
+              </a>
+            </div>
+            <h3 class="project-name">ACADEMIC PROJECTS</h3>
+            <p class="project-tagline">University Engineering Coursework</p>
+            <p class="project-desc">
+              Coursework spanning data structures implementation, algorithm design, system-level programming exercises, and software engineering fundamentals — part of the B.Sc. Software Engineering curriculum at Nile University of Nigeria, Abuja.
+            </p>
+            <div class="project-stack-chips">
+              <span class="stack-chip">C++</span>
+              <span class="stack-chip">Python</span>
+              <span class="stack-chip">Java</span>
+              <span class="stack-chip">Data Structures</span>
+              <span class="stack-chip">Algorithms</span>
+            </div>
+          </article>
+
+        </div><!-- /projects-grid -->
+      </div>
+    </section><!-- /projects -->
+
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         04 / TECH STACK + FIGMA
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <section class="page-section stack-section" id="stack" data-section-id="stack">
+      <div class="section-inner">
+
+        <div class="section-header" data-animate>
+          <span class="section-num">04 / STACK</span>
+          <h2 class="section-title">TOOLS &amp; DESIGN</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="stack-layout">
+
+          <!-- Engineering Skills -->
+          <div class="tech-skills-block" data-animate>
+            <span class="block-label">// ENGINEERING STACK</span>
+            <div class="skills-list">
+              <div class="skill-row" id="skill-cpp">
+                <div class="skill-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="skill-icon" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                  <span class="skill-name">C++</span>
+                </div>
+                <span class="skill-desc">Primary language · 3+ years · Daily driver for NEXUS</span>
+              </div>
+              <div class="skill-row" id="skill-llvm">
+                <div class="skill-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="skill-icon" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path></svg>
+                  <span class="skill-name">LLVM</span>
+                </div>
+                <span class="skill-desc">Compiler infrastructure · Active in NEXUS development</span>
+              </div>
+              <div class="skill-row" id="skill-python">
+                <div class="skill-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="skill-icon" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"></path></svg>
+                  <span class="skill-name">Python</span>
+                </div>
+                <span class="skill-desc">Scripting · Automation · Build tooling</span>
+              </div>
+              <div class="skill-row" id="skill-java">
+                <div class="skill-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="skill-icon" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"></path></svg>
+                  <span class="skill-name">Java</span>
+                </div>
+                <span class="skill-desc">Academic coursework · JVM architecture studies</span>
+              </div>
+              <div class="skill-row" id="skill-git">
+                <div class="skill-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="skill-icon" aria-hidden="true"><circle cx="18" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 9v6M9 6h6a3 3 0 0 1 3 3v3"></path></svg>
+                  <span class="skill-name">Git</span>
+                </div>
+                <span class="skill-desc">Advanced workflows · Version control · Branching strategies</span>
+              </div>
+              <div class="skill-row" id="skill-linux">
+                <div class="skill-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="skill-icon" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" stroke-width="1.5"></rect><path stroke-linecap="round" stroke-width="1.5" d="M21 12H3M12 3v18"></path></svg>
+                  <span class="skill-name">Linux</span>
+                </div>
+                <span class="skill-desc">POSIX · Kernel concepts · Primary dev environment</span>
+              </div>
+              <div class="skill-row" id="skill-figma">
+                <div class="skill-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="skill-icon" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" stroke-width="1.5"></rect><path d="M8 21h8M12 17v4" stroke-linecap="round" stroke-width="1.5"></path></svg>
+                  <span class="skill-name">Figma</span>
+                </div>
+                <span class="skill-desc">UI/UX design · Interface systems · Component libraries</span>
+              </div>
+              <div class="skill-row" id="skill-mandarin">
+                <div class="skill-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="skill-icon" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
+                  <span class="skill-name">Mandarin</span>
+                </div>
+                <span class="skill-desc">Conversational · Active self-study</span>
+              </div>
+            </div>
+          </div><!-- /tech-skills-block -->
+
+          <div class="figma-block" data-animate>
+  <span class="block-label">// FIGMA DESIGN SHOWCASE</span>
+  <div class="figma-grid">
+ 
+    <!-- Card 1: Valorant -->
+    <div class="figma-card" id="figma-card-1">
+      <div class="figma-img-wrap">
+        <img
+          src="figma-valorant.png"
+          alt="Valorant mobile app — splash, sign-in, and weapon shop screens"
+          class="figma-screenshot"
+          loading="lazy"
+        />
+        <div class="figma-img-overlay">
+          <a
+            href="https://www.figma.com/proto/Eojv9grBNq5OULTMmqkF24/Valorant?node-id=0-1&t=CYXRGYTD6jvF47WZ-1"
+            target="_blank"
+            rel="noopener"
+            class="figma-view-btn"
+            aria-label="View Valorant prototype in Figma"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+            VIEW PROTOTYPE
+          </a>
+        </div>
+        <div class="figma-img-tag">MOBILE APP</div>
+      </div>
+      <div class="figma-card-info">
+        <div class="figma-card-text">
+          <span class="figma-card-title">Valorant Mobile UI</span>
+    <span class="figma-card-sub">Game App · Splash · Auth · Weapon Shop</span>
+  </div>
+</div>
+    </div>
+ 
+    <!-- Card 2: Truemind / Chuks Kitchen -->
+    <div class="figma-card" id="figma-card-2">
+      <div class="figma-img-wrap">
+        <img
+          src="figma-truemind.png"
+          alt="Chuks Kitchen food delivery web app — onboarding, sign-in, home and menu screens"
+          class="figma-screenshot"
+          loading="lazy"
+        />
+        <div class="figma-img-overlay">
+          <a
+            href="https://www.figma.com/proto/EIq17AUkUFl4TTvzvqhgZW/Truemind-UI-DESIGN?node-id=0-1&t=96p9t8oTDLxvGLvh-1"
+            target="_blank"
+            rel="noopener"
+            class="figma-view-btn"
+            aria-label="View Chuks Kitchen prototype in Figma"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+            VIEW PROTOTYPE
+          </a>
+        </div>
+        <div class="figma-img-tag">WEB APP</div>
+      </div>
+      <div class="figma-card-info">
+        <div class="figma-card-text">
+          <span class="figma-card-title">Chuks Kitchen</span>
+          <span class="figma-card-sub">Food Delivery · Responsive Web · Nigerian Cuisine</span>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Card 3: TalentFlow LMS -->
+    <div class="figma-card" id="figma-card-3">
+      <div class="figma-img-wrap">
+        <img
+          src="figma-lms.png"
+          alt="TalentFlow LMS — dashboard, courses, assignments and profile screens"
+          class="figma-screenshot"
+          loading="lazy"
+        />
+        <div class="figma-img-overlay">
+          <a
+            href="https://www.figma.com/proto/CWdNtD8XC2al3F0GY5Pjzp/LMS?node-id=256-209&t=EKbgd2V2c9TpLBOP-1"
+            target="_blank"
+            rel="noopener"
+            class="figma-view-btn"
+            aria-label="View TalentFlow LMS prototype in Figma"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+            VIEW PROTOTYPE
+          </a>
+        </div>
+        <div class="figma-img-tag">DASHBOARD</div>
+      </div>
+      <div class="figma-card-info">
+        <div class="figma-card-text">
+          <span class="figma-card-title">TalentFlow LMS</span>
+          <span class="figma-card-sub">Learning Platform · Dashboard · Course Management</span>
+        </div>
+      </div>
+    </div>
+ 
+  </div><!-- /figma-grid -->
+</div><!-- /figma-block -->
+
+        </div><!-- /stack-layout -->
+      </div>
+    </section><!-- /stack -->
+
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         05 / EDUCATION + ACHIEVEMENTS
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <section class="page-section journey-section" id="journey" data-section-id="journey">
+      <div class="section-inner">
+
+        <div class="section-header" data-animate>
+          <span class="section-num">05 / JOURNEY</span>
+          <h2 class="section-title">EDUCATION &amp; MILESTONES</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="journey-layout">
+
+          <!-- Education Timeline -->
+          <div class="education-block" data-animate>
+            <span class="block-label">// ACADEMIC PATH</span>
+            <ul class="edu-timeline">
+              <li class="edu-item">
+                <div class="edu-connector"></div>
+                <div class="edu-dot"></div>
+                <div class="edu-content">
+                  <span class="edu-date">2024 — PRESENT</span>
+                  <h3 class="edu-school">Nile University of Nigeria</h3>
+                  <p class="edu-degree">B.Sc. Software Engineering</p>
+                  <p class="edu-note">Focus: systems programming, compiler design, and low-level software architecture.</p>
+                </div>
+              </li>
+              <li class="edu-item">
+                <div class="edu-connector edu-connector-last"></div>
+                <div class="edu-dot"></div>
+                <div class="edu-content">
+                  <span class="edu-date">2024 — Present</span>
+                  <h3 class="edu-school">Aptech Computer Education</h3>
+                  <p class="edu-degree">Advanced Diploma in Software Engineering</p>
+                  <p class="edu-note">Latest industry tools & technologies- Figma, React, MongoDB, Java Development, .NET, etc</p>
+                </div>
+              </li>
+              <li class="edu-item">
+                <div class="edu-connector"></div>
+                <div class="edu-dot"></div>
+                <div class="edu-content">
+                  <span class="edu-date">2023 — 2024</span>
+                  <h3 class="edu-school">Codecademy</h3>
+                  <p class="edu-degree">C++ Core Architectures — Certified</p>
+                  <p class="edu-note">Memory management, OOP, STL, systems-level programming patterns.</p>
+                </div>
+              </li>
+              <li class="edu-item">
+                <div class="edu-connector edu-connector-last"></div>
+                <div class="edu-dot"></div>
+                <div class="edu-content">
+                  <span class="edu-date">2018 — 2024</span>
+                  <h3 class="edu-school">Astute Montessori Schools</h3>
+                  <p class="edu-degree">Secondary School — Graduated 2024</p>
+                  <p class="edu-note">Foundation in sciences, mathematics, and academic discipline.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Achievements -->
+          <div class="achievements-block" data-animate>
+            <span class="block-label">// MILESTONES ACHIEVED</span>
+            <ul class="achievements-list">
+              <li class="ach-item" id="ach-nexus">
+                <span class="ach-marker">◈</span>
+                <div class="ach-body">
+                  <span class="ach-title">Building NEXUS</span>
+                  <span class="ach-desc">A production-grade compiler in C++ — from scratch</span>
+                </div>
+              </li>
+              <li class="ach-item" id="ach-cert">
+                <span class="ach-marker">◈</span>
+                <div class="ach-body">
+                  <span class="ach-title">C++ Certified Programmer</span>
+                  <span class="ach-desc">Codecademy C++ Core Architectures certification</span>
+                </div>
+              </li>
+              <li class="ach-item" id="ach-portfolio">
+                <span class="ach-marker">◈</span>
+                <div class="ach-body">
+                  <span class="ach-title">Self-Taught Portfolio Engineering</span>
+                  <span class="ach-desc">This entire site built from scratch — no frameworks, no templates</span>
+                </div>
+              </li>
+              <li class="ach-item" id="ach-figma">
+                <span class="ach-marker">◈</span>
+                <div class="ach-body">
+                  <span class="ach-title">Figma Design Proficiency</span>
+                  <span class="ach-desc">UI/UX across mobile, web, and design system levels</span>
+                </div>
+              </li>
+              <li class="ach-item" id="ach-multilingual">
+                <span class="ach-marker">◈</span>
+                <div class="ach-body">
+                  <span class="ach-title">Multilingual</span>
+                  <span class="ach-desc">English (fluent) · Mandarin Chinese (conversational, self-studied)</span>
+                </div>
+              </li>
+              <li class="ach-item" id="ach-degree">
+                <span class="ach-marker">◈</span>
+                <div class="ach-body">
+                  <span class="ach-title">Pursuing B.Sc. Software Engineering</span>
+                  <span class="ach-desc">Nile University of Nigeria, Abuja — Class of 2028</span>
+                </div>
+              </li>
+              <li class="ach-item" id="ach-degree">
+                <span class="ach-marker">◈</span>
+                <a href="https://truemindsltd.com/internship/verification/certificate/INT-CERT-CAR309201832778">
+                  <div class="ach-body">
+                    <span class="ach-title">Completed Internship at Trueminds Innovations LTD</span>
+                    <span class="ach-desc"><em><b>Click to Verify Certificate</b></em></span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div><!-- /journey-layout -->
+      </div>
+    </section><!-- /journey -->
+
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         06 / CONTACT
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <section class="page-section contact-section" id="contact" data-section-id="contact">
+      <div class="section-inner">
+
+        <div class="section-header" data-animate>
+          <span class="section-num">06 / CONTACT</span>
+          <h2 class="section-title">OPEN CHANNEL</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="contact-layout">
+
+          <!-- Contact Form -->
+          <div class="contact-form-block" data-animate>
+            <span class="block-label">// SEND A TRANSMISSION</span>
+            <form class="contact-form" id="contact-form" novalidate>
+              <div class="form-group">
+                <label class="form-label" for="form-name">NAME</label>
+                <input type="text" id="form-name" name="name" class="form-input" placeholder="Your name" autocomplete="name" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="form-email">EMAIL</label>
+                <input type="email" id="form-email" name="email" class="form-input" placeholder="your@email.com" autocomplete="email" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="form-message">MESSAGE</label>
+                <textarea id="form-message" name="message" class="form-input form-textarea" placeholder="What's on your mind?" rows="4" required></textarea>
+              </div>
+              <button type="submit" class="form-submit" id="form-submit-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+                SEND MESSAGE
+              </button>
+              <p class="form-status" id="form-status" aria-live="polite" role="status"></p>
+            </form>
+          </div>
+
+          <!-- Links + Availability -->
+          <div class="contact-links-block" data-animate>
+            <span class="block-label">// DIRECT CHANNELS</span>
+            <div class="contact-links-list">
+              <a href="https://github.com/Peekay08" target="_blank" rel="noopener" class="contact-link-row" id="cl-github">
+                <div class="cl-icon-wrap">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                </div>
+                <div class="cl-text-block">
+                  <span class="cl-platform">GITHUB</span>
+                  <span class="cl-handle">github.com/Peekay08</span>
+                </div>
+                <span class="cl-arrow">→</span>
+              </a>
+              <a href="mailto:04ukiyo14@gmail.com" class="contact-link-row" id="cl-email">
+                <div class="cl-icon-wrap">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </div>
+                <div class="cl-text-block">
+                  <span class="cl-platform">EMAIL</span>
+                  <span class="cl-handle">04ukiyo14@gmail.com</span>
+                </div>
+                <span class="cl-arrow">→</span>
+              </a>
+              <a href="tel:+2349024840717" class="contact-link-row" id="cl-phone">
+                <div class="cl-icon-wrap">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                </div>
+                <div class="cl-text-block">
+                  <span class="cl-platform">TELEPHONE</span>
+                  <span class="cl-handle">+234 902 484 0717</span>
+                </div>
+                <span class="cl-arrow">→</span>
+              </a>
+            </div>
+
+            <div class="availability-box">
+              <div class="avail-row">
+                <span class="pulse-dot"></span>
+                <span class="avail-text">Available for systems engineering, compiler development, and performance-focused opportunities.</span>
+              </div>
+              <button onclick="window.print()" class="download-cv-btn" id="contact-download-cv">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                DOWNLOAD CV
+              </button>
+            </div>
+
+            <footer class="site-footer">
+              <span class="footer-line">// PROMISE KOLADE &nbsp;·&nbsp; PORTFOLIO v2.0 &nbsp;·&nbsp; 2026</span>
+              <span class="footer-line">Built in raw HTML · CSS · JavaScript &nbsp;·&nbsp; No frameworks</span>
+            </footer>
+          </div>
+
+        </div><!-- /contact-layout -->
+      </div>
+    </section><!-- /contact -->
+
+  </main><!-- /scroll-main -->
 
   <script src="script.js"></script>
 </body>
-
 </html>
