@@ -1,8 +1,43 @@
 /* ==========================================================================
-   PROMISE KOLADE — PORTFOLIO v2.0 — CORE INTERACTIVE ENGINE
+   PROMISE KOLADE — PORTFOLIO v3.0 — CORE INTERACTIVE ENGINE
    ========================================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // 0. BOOT SEQUENCE
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  const bootScreen    = document.getElementById("boot-screen");
+  const bootLogo      = document.getElementById("boot-logo");
+  const bootProgress  = document.getElementById("boot-progress-fill");
+  const bootLineEls   = [0,1,2,3,4,5].map(i => document.getElementById(`bl-${i}`));
+
+  // Timings (ms): logo → lines staggered → exit
+  const bootTimings = [0, 280, 520, 760, 1000, 1220];
+  const bootDone = 1500;
+
+  // Show logo first
+  setTimeout(() => bootLogo && bootLogo.classList.add("visible"), 80);
+
+  bootLineEls.forEach((el, i) => {
+    if (!el) return;
+    setTimeout(() => {
+      el.classList.add("visible");
+      if (bootProgress) bootProgress.style.width = `${((i + 1) / bootLineEls.length) * 100}%`;
+      // Mark previous as done
+      if (i > 0 && bootLineEls[i - 1]) bootLineEls[i - 1].classList.add("done");
+    }, bootTimings[i] + 100);
+  });
+
+  setTimeout(() => {
+    if (bootScreen) {
+      bootScreen.classList.add("boot-exit");
+      setTimeout(() => {
+        bootScreen.style.display = "none";
+        document.body.dispatchEvent(new CustomEvent("boot-complete"));
+      }, 500);
+    }
+  }, bootDone);
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   // 1. DOM REFERENCES
@@ -20,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const contactForm       = document.getElementById("contact-form");
   const formStatus        = document.getElementById("form-status");
 
-  // Hotspot coordinates on portrait image (% relative to portrait container)
+  // Portrait hotspot coordinates (% of portrait container)
   const hotspots = {
     about:    { x: 48, y: 55 },
     skills:   { x: 50, y: 22 },
@@ -29,100 +64,144 @@ document.addEventListener("DOMContentLoaded", () => {
     education:{ x: 55, y: 35 },
   };
 
-  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// GITHUB STATS FETCHER
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-(function fetchGitHubStats() {
-  const username = "Peekay08";
- 
-  // Repos to hide from the list
-  const HIDDEN_REPOS = ["Cherish"];
- 
-  // Hosted links — add your deployed URLs here when ready
-  // key = exact repo name, value = live URL
-  const HOSTED_LINKS = {
-    "Vantage": "https://github.com/Peekay08/Vantage/tree/main/Vantage",
-    "myCV": "https://peekay08.github.io/myCV/",
-    "Chuk-s-Kitchen": "https://peekay08.github.io/Chuk-s-Kitchen/",
-    "Persol": "https://peekay08.github.io/Persol/",
-    "Challenge": "https://github.com/Peekay08/Challenge/tree/main/src"
+  // Nav item → portrait hotspot mapping
+  const navHotspots = {
+    "nav-about":    { x: 48, y: 35 },
+    "nav-projects": { x: 50, y: 58 },
+    "nav-stack":    { x: 52, y: 45 },
+    "nav-journey":  { x: 50, y: 30 },
+    "nav-contact":  { x: 46, y: 72 },
   };
- 
-  // User stats
-  fetch(`https://api.github.com/users/${username}`)
-    .then(r => r.json())
-    .then(data => {
-      const reposEl     = document.getElementById("gh-repos");
-      const followersEl = document.getElementById("gh-followers");
-      const followingEl = document.getElementById("gh-following");
-      if (reposEl)     reposEl.textContent    = data.public_repos ?? "—";
-      if (followersEl) followersEl.textContent = data.followers    ?? "—";
-      if (followingEl) followingEl.textContent = data.following    ?? "—";
-    })
-    .catch(() => {});
- 
-  // Repos list
-  fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=20`)
-    .then(r => r.json())
-    .then(allRepos => {
-      const container = document.getElementById("gh-repo-items");
-      if (!container) return;
- 
-      // Filter hidden repos, then take top 5
-      const repos = Array.isArray(allRepos)
-        ? allRepos.filter(r => !HIDDEN_REPOS.includes(r.name)).slice(0, 5)
-        : [];
- 
-      if (repos.length === 0) {
-        container.innerHTML = `<span class="gh-error">// No public repositories found</span>`;
-        return;
-      }
- 
-      container.innerHTML = repos.map(repo => {
-        const updated  = new Date(repo.updated_at);
-        const label    = updated.toLocaleDateString("en-GB", { month: "short", year: "numeric" });
-        const hostedUrl = HOSTED_LINKS[repo.name] || null;
- 
-        const viewBtn = hostedUrl
-          ? `<a href="${hostedUrl}" target="_blank" rel="noopener" class="gh-view-btn" aria-label="View hosted work for ${repo.name}">
-               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                 <circle cx="12" cy="12" r="10"></circle>
-                 <line x1="2" y1="12" x2="22" y2="12"></line>
-                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-               </svg>
-               VIEW
-             </a>`
-          : `<span class="gh-view-btn" style="opacity:0.3;cursor:default;" aria-hidden="true">
-               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                 <circle cx="12" cy="12" r="10"></circle>
-                 <line x1="2" y1="12" x2="22" y2="12"></line>
-                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-               </svg>
-               VIEW
-             </span>`;
- 
-        return `
-          <div class="gh-repo-row">
-            <a href="${repo.html_url}" target="_blank" rel="noopener" class="gh-repo-link-mask" aria-label="View ${repo.name} on GitHub"></a>
-            <div class="gh-repo-left">
-              <span class="gh-repo-name">${repo.name}</span>
-            </div>
-            <div class="gh-repo-right">
-              ${repo.language ? `<span class="gh-repo-lang">${repo.language}</span>` : ""}
-              <span class="gh-repo-updated">${label}</span>
-              ${viewBtn}
-            </div>
-          </div>`;
-      }).join("");
-    })
-    .catch(() => {
-      const container = document.getElementById("gh-repo-items");
-      if (container) container.innerHTML = `<span class="gh-error">// Could not load repositories</span>`;
-    });
-})();
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  // 2. AUDIO ENGINE
+  // GITHUB STATS FETCHER
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  (function fetchGitHubStats() {
+    const username    = "Peekay08";
+    const HIDDEN_REPOS = ["Cherish"];
+    const HOSTED_LINKS = {
+      "Vantage":       "https://github.com/Peekay08/Vantage/tree/main/Vantage",
+      "Portfolio":     "https://peekay08.github.io/Portfolio/",
+      "Chuk-s-Kitchen":"https://peekay08.github.io/Chuk-s-Kitchen/",
+      "Persol":        "https://peekay08.github.io/Persol/",
+      "Challenge":     "https://github.com/Peekay08/Challenge/tree/main/src"
+    };
+
+    fetch(`https://api.github.com/users/${username}`)
+      .then(r => r.json())
+      .then(data => {
+        const reposEl     = document.getElementById("gh-repos");
+        const followersEl = document.getElementById("gh-followers");
+        if (reposEl)     reposEl.textContent    = data.public_repos ?? "—";
+        if (followersEl) followersEl.textContent = data.followers    ?? "—";
+      })
+      .catch(() => {});
+
+    fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=20`)
+      .then(r => r.json())
+      .then(allRepos => {
+        const container = document.getElementById("gh-repo-items");
+        if (!container) return;
+
+        const repos = Array.isArray(allRepos)
+          ? allRepos.filter(r => !HIDDEN_REPOS.includes(r.name)).slice(0, 5)
+          : [];
+
+        if (repos.length === 0) {
+          container.innerHTML = `<span class="gh-error">// No public repositories found</span>`;
+          return;
+        }
+
+        // Render as SYSTEM STATUS rows
+        container.innerHTML = repos.map(repo => {
+          const updated   = new Date(repo.updated_at);
+          const label     = updated.toLocaleDateString("en-GB", { month: "short", year: "numeric" });
+          const hostedUrl = HOSTED_LINKS[repo.name] || repo.html_url;
+          return `
+            <a href="${hostedUrl}" target="_blank" rel="noopener" class="gh-sys-repo-row" aria-label="View ${repo.name}">
+              <span class="gh-sys-prompt">›</span>
+              <span class="gh-sys-repo-name">${repo.name}</span>
+              ${repo.language ? `<span class="gh-sys-repo-lang">[${repo.language}]</span>` : ""}
+              <span class="gh-sys-repo-date">${label}</span>
+            </a>`;
+        }).join("");
+      })
+      .catch(() => {
+        const container = document.getElementById("gh-repo-items");
+        if (container) container.innerHTML = `<span style="font-family:var(--font-mono);font-size:9px;color:var(--color-text-dim)">// Could not load repositories</span>`;
+      });
+  })();
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // 2. CUSTOM CURSOR ENGINE
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  const cursorRing = document.getElementById("cursor-ring");
+  const cursorDot  = document.getElementById("cursor-dot");
+
+  // Only run on pointer:fine devices
+  const isPointerFine = window.matchMedia("(pointer: fine)").matches;
+  if (isPointerFine && cursorRing && cursorDot) {
+    let ringX = 0, ringY = 0;
+    let mouseX = 0, mouseY = 0;
+    let cursorVisible = false;
+
+    document.addEventListener("mousemove", e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (!cursorVisible) {
+        cursorVisible = true;
+        cursorRing.classList.add("cursor-active");
+        cursorDot.classList.add("cursor-active");
+      }
+      // Dot follows exactly
+      cursorDot.style.left = `${mouseX}px`;
+      cursorDot.style.top  = `${mouseY}px`;
+    });
+
+    // Ring lerps behind
+    (function animateCursor() {
+      ringX += (mouseX - ringX) * 0.14;
+      ringY += (mouseY - ringY) * 0.14;
+      cursorRing.style.left = `${ringX}px`;
+      cursorRing.style.top  = `${ringY}px`;
+      requestAnimationFrame(animateCursor);
+    })();
+
+    // Expand on interactive elements
+    const hoverTargets = "a, button, [tabindex], [data-hotspot], .skill-category, .figma-card, .project-card, .honest-stat, .ach-item, .contact-link-row, .nav-item";
+    document.addEventListener("mouseover", e => {
+      if (e.target.closest(hoverTargets)) {
+        cursorRing.classList.add("cursor-hover");
+      }
+    });
+    document.addEventListener("mouseout", e => {
+      if (e.target.closest(hoverTargets)) {
+        cursorRing.classList.remove("cursor-hover");
+      }
+    });
+
+    // Click spring
+    document.addEventListener("mousedown", () => {
+      cursorRing.classList.add("cursor-click");
+    });
+    document.addEventListener("mouseup", () => {
+      cursorRing.classList.remove("cursor-click");
+    });
+
+    document.addEventListener("mouseleave", () => {
+      cursorRing.classList.remove("cursor-active");
+      cursorDot.classList.remove("cursor-active");
+      cursorVisible = false;
+    });
+    document.addEventListener("mouseenter", () => {
+      cursorRing.classList.add("cursor-active");
+      cursorDot.classList.add("cursor-active");
+      cursorVisible = true;
+    });
+  }
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // 3. AUDIO ENGINE
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   let audioCtx        = null;
   let isSoundEnabled  = localStorage.getItem("sfx_enabled") === "true";
@@ -230,7 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  // 3. SPOTLIGHT PHYSICS (hero portrait)
+  // 4. SPOTLIGHT PHYSICS (hero portrait)
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   let currentSpot = { x: 50, y: 50, radius: 0 };
   let targetSpot  = { x: 50, y: 50, radius: 0 };
@@ -238,7 +317,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let isHoveringPortrait = false;
   let activeHotspotKey   = null;
 
-  // Only allow spotlight/HUD when hero is in view
   function isHeroVisible() {
     const hero = document.getElementById("hero");
     if (!hero) return false;
@@ -281,7 +359,28 @@ document.addEventListener("DOMContentLoaded", () => {
   requestAnimationFrame(updateSpotlight);
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  // 4. HUD CARD INTERACTIONS (hero only)
+  // 5. NAV → PORTRAIT HOTSPOT EXPANSION
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  navItems.forEach(navItem => {
+    const navId = navItem.id;
+    if (!navHotspots[navId]) return;
+
+    navItem.addEventListener("mouseenter", () => {
+      if (!isHeroVisible()) return;
+      const spot = navHotspots[navId];
+      targetSpot.x = spot.x;
+      targetSpot.y = spot.y;
+      targetSpot.radius = 90;
+    });
+    navItem.addEventListener("mouseleave", () => {
+      if (!isHoveringCard && !isHoveringPortrait) {
+        targetSpot.radius = 0;
+      }
+    });
+  });
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // 6. HUD CARD INTERACTIONS (hero only)
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   hudCards.forEach(card => {
     card.addEventListener("mouseenter", () => {
@@ -306,6 +405,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const rect = card.getBoundingClientRect();
       const rx = -((e.clientY - rect.top)  / rect.height - 0.5) * 8;
       const ry =  ((e.clientX - rect.left) / rect.width  - 0.5) * 8;
+      card.style.transition = "border-color 0.3s ease, box-shadow 0.3s ease";
       card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.03,1.03,1.03)`;
 
       const key = card.getAttribute("data-hotspot");
@@ -315,11 +415,11 @@ document.addEventListener("DOMContentLoaded", () => {
     card.addEventListener("mouseleave", () => {
       isHoveringCard  = false;
       activeHotspotKey = null;
-      card.style.transition = "transform 0.5s cubic-bezier(0.16,1,0.3,1), border-color 0.4s ease";
-      card.style.transform  = "perspective(900px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)";
       clearHudConnection();
       playSound("unlock");
       targetSpot.radius = isHoveringPortrait ? 120 : 0;
+      // Inertia settle
+      settleCard(card, card._velX || 0, card._velY || 0);
     });
 
     card.addEventListener("click", () => playSound("tick"));
@@ -327,25 +427,68 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  // 5. 3D TILT on project cards (non-hero)
+  // 7. CARD INERTIA PHYSICS
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  const tiltCards = document.querySelectorAll(".project-card, .figma-card, .honest-stat, .ach-item");
-  tiltCards.forEach(el => {
-    el.addEventListener("mouseenter", () => playSound("hover"));
-    el.addEventListener("mousemove", (e) => {
-      const rect = el.getBoundingClientRect();
-      const rx = -((e.clientY - rect.top)  / rect.height - 0.5) * 6;
-      const ry =  ((e.clientX - rect.left) / rect.width  - 0.5) * 6;
-      el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+  // Replace the simple tilt with velocity-damped inertia
+  const inertiaCards = document.querySelectorAll(".project-card, .figma-card, .honest-stat, .ach-item");
+
+  inertiaCards.forEach(el => {
+    let rotX = 0, rotY = 0;
+    let velX = 0, velY = 0;
+    let lastRx = 0, lastRy = 0;
+    let isHovering = false;
+    let rafId = null;
+
+    el.addEventListener("mouseenter", () => {
+      isHovering = true;
+      playSound("hover");
+      velX = 0; velY = 0;
+      if (rafId) cancelAnimationFrame(rafId);
     });
+
+    el.addEventListener("mousemove", e => {
+      if (!isHovering) return;
+      const rect = el.getBoundingClientRect();
+      const rx = -((e.clientY - rect.top)  / rect.height - 0.5) * 10;
+      const ry =  ((e.clientX - rect.left) / rect.width  - 0.5) * 10;
+      // Track velocity
+      velX = rx - lastRx;
+      velY = ry - lastRy;
+      lastRx = rx; lastRy = ry;
+      rotX = rx; rotY = ry;
+      el.style.transition = "transform 0.05s linear, box-shadow 0.3s ease";
+      el.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-4px)`;
+    });
+
     el.addEventListener("mouseleave", () => {
-      el.style.transition = "transform 0.5s cubic-bezier(0.16,1,0.3,1)";
-      el.style.transform  = "perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0)";
+      isHovering = false;
+      // Continue with velocity, then settle
+      let curRotX = rotX, curRotY = rotY;
+      let curVelX = velX * 3, curVelY = velY * 3;
+      el.style.transition = "none";
+
+      function settle() {
+        curVelX *= 0.82;
+        curVelY *= 0.82;
+        curRotX += curVelX;
+        curRotY += curVelY;
+        // Dampen toward zero
+        curRotX *= 0.88;
+        curRotY *= 0.88;
+        el.style.transform = `perspective(900px) rotateX(${curRotX}deg) rotateY(${curRotY}deg) translateY(0)`;
+        if (Math.abs(curRotX) > 0.05 || Math.abs(curRotY) > 0.05) {
+          rafId = requestAnimationFrame(settle);
+        } else {
+          el.style.transition = "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)";
+          el.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)";
+        }
+      }
+      rafId = requestAnimationFrame(settle);
     });
   });
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  // 6. HUD SVG CONNECTION SYSTEM
+  // 8. HUD SVG CONNECTION SYSTEM
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   function drawHudConnection(element, hotspot) {
     if (!hudSvg || !portraitContainer || !isHeroVisible()) return;
@@ -424,7 +567,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Clear HUD connections when scrolling away from hero
   window.addEventListener("scroll", () => {
     if (!isHeroVisible() && hudSvg.innerHTML) {
       hudSvg.innerHTML = "";
@@ -433,7 +575,57 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { passive: true });
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  // 7. SMOOTH SCROLL (nav + CTA links)
+  // 9. NEXUS SVG PIPELINE — draw on hover
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  const nexusCard    = document.getElementById("project-nexus");
+  const pipelineConnectors = document.querySelectorAll(".pipeline-connector");
+  const pipelineArrows     = document.querySelectorAll(".pipeline-arrow-head");
+
+  if (nexusCard && pipelineConnectors.length) {
+    let pipelineRaf = null;
+    let pipelineDrawn = false;
+
+    function drawPipeline() {
+      pipelineConnectors.forEach((connector, i) => {
+        setTimeout(() => {
+          connector.classList.add("drawn");
+          // Make IR connector brighter
+          if (i >= 2) connector.classList.add("active");
+          setTimeout(() => {
+            if (pipelineArrows[i]) {
+              pipelineArrows[i].classList.add("visible");
+              if (i >= 2) pipelineArrows[i].classList.add("active");
+            }
+          }, 120);
+        }, i * 100);
+      });
+      pipelineDrawn = true;
+    }
+
+    function resetPipeline() {
+      pipelineConnectors.forEach(c => c.classList.remove("drawn", "active"));
+      pipelineArrows.forEach(a => a.classList.remove("visible", "active"));
+      pipelineDrawn = false;
+    }
+
+    nexusCard.addEventListener("mouseenter", () => {
+      if (!pipelineDrawn) drawPipeline();
+    });
+    nexusCard.addEventListener("mouseleave", () => {
+      setTimeout(resetPipeline, 600);
+    });
+
+    // Also draw when card scrolls into view
+    const pipelineObserver = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && !pipelineDrawn) {
+        setTimeout(drawPipeline, 400);
+      }
+    }, { threshold: 0.5 });
+    pipelineObserver.observe(nexusCard);
+  }
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // 10. SMOOTH SCROLL (nav + CTA links)
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener("click", (e) => {
@@ -448,7 +640,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  // 8. NAV RAIL — ACTIVE STATE ON SCROLL
+  // 11. NAV RAIL — ACTIVE STATE ON SCROLL
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   const sectionMap = new Map();
   sections.forEach(sec => sectionMap.set(sec.getAttribute("data-section-id"), sec));
@@ -470,36 +662,116 @@ document.addEventListener("DOMContentLoaded", () => {
   sections.forEach(sec => navObserver.observe(sec));
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  // 9. SCROLL ANIMATIONS (Intersection Observer)
+  // 12. SCROLL ANIMATIONS (Intersection Observer)
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   const animateObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add("in-view");
-        animateObserver.unobserve(entry.target); // fire once
+        animateObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1 });
 
   // Stagger children of grid/list containers
   const staggerParents = document.querySelectorAll(
-    ".projects-grid, .about-grid, .skills-list, .achievements-list, " +
+    ".projects-grid, .about-grid, .skill-categories, .achievements-list, " +
     ".edu-timeline, .contact-layout, .figma-grid, .hero-hud-cluster, .contact-links-list"
   );
-
   staggerParents.forEach(parent => {
     Array.from(parent.children).forEach((child, i) => {
-      if (!child.hasAttribute("data-animate")) {
-        child.setAttribute("data-animate", "");
-      }
+      if (!child.hasAttribute("data-animate")) child.setAttribute("data-animate", "");
       child.style.transitionDelay = `${i * 0.08}s`;
     });
   });
 
   document.querySelectorAll("[data-animate]").forEach(el => animateObserver.observe(el));
 
+  // Skill categories — assemble observer
+  const assembleObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+        assembleObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll("[data-assemble]").forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.12}s`;
+    assembleObserver.observe(el);
+  });
+
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  // 10. CONTACT FORM
+  // 13. CV OVERLAY
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  const cvOverlay   = document.getElementById("cv-overlay");
+  const cvBackdrop  = document.getElementById("cv-backdrop");
+  const cvCloseBtn  = document.getElementById("cv-close-btn");
+  const cvCloseBtn2 = document.getElementById("cv-close-btn-2");
+  const cvSections  = document.querySelectorAll(".cv-section");
+
+  // All buttons that open the CV
+  const cvOpenBtns = [
+    document.getElementById("hero-view-cv-btn"),
+    document.getElementById("contact-view-cv-btn"),
+    document.getElementById("header-view-cv-btn"),
+  ].filter(Boolean);
+
+  function openCV() {
+    if (!cvOverlay) return;
+    cvOverlay.classList.add("cv-open");
+    cvOverlay.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    playSound("lock");
+    // Stagger sections in
+    cvSections.forEach((sec, i) => {
+      sec.style.transitionDelay = `${i * 0.07 + 0.2}s`;
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => sec.classList.add("cv-visible"));
+      });
+    });
+  }
+
+  function closeCV() {
+    if (!cvOverlay) return;
+    cvOverlay.classList.remove("cv-open");
+    cvOverlay.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    playSound("unlock");
+    cvSections.forEach(sec => sec.classList.remove("cv-visible"));
+  }
+
+  cvOpenBtns.forEach(btn => btn.addEventListener("click", openCV));
+  if (cvCloseBtn)  cvCloseBtn.addEventListener("click",  closeCV);
+  if (cvCloseBtn2) cvCloseBtn2.addEventListener("click", closeCV);
+  if (cvBackdrop)  cvBackdrop.addEventListener("click",  closeCV);
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && cvOverlay?.classList.contains("cv-open")) closeCV();
+  });
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // 14. BUTTON RIPPLE EFFECT
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  const rippleTargets = document.querySelectorAll(
+    ".cta-primary, .cta-secondary, .form-submit, .download-cv-btn, .cv-dl-btn, .hud-btn"
+  );
+  rippleTargets.forEach(btn => {
+    btn.addEventListener("click", e => {
+      const rect   = btn.getBoundingClientRect();
+      const ripple = document.createElement("span");
+      ripple.className = "btn-ripple";
+      ripple.style.left = `${e.clientX - rect.left}px`;
+      ripple.style.top  = `${e.clientY - rect.top}px`;
+      btn.appendChild(ripple);
+      ripple.addEventListener("animationend", () => ripple.remove());
+      playSound("tick");
+    });
+  });
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // 15. CONTACT FORM
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   if (contactForm && formStatus) {
     contactForm.addEventListener("submit", (e) => {
@@ -508,7 +780,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const email   = document.getElementById("form-email").value.trim();
       const message = document.getElementById("form-message").value.trim();
 
-      // Validate
       if (!name || !email || !message) {
         formStatus.textContent  = "// ALL FIELDS REQUIRED";
         formStatus.className    = "form-status error";
@@ -522,7 +793,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Open mailto
       const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
       const body    = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
       window.location.href = `mailto:04ukiyo14@gmail.com?subject=${subject}&body=${body}`;
@@ -538,40 +808,29 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 4000);
     });
 
-    // Input focus sound
     contactForm.querySelectorAll(".form-input").forEach(input => {
       input.addEventListener("focus", () => playSound("hover"));
     });
   }
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  // 11. SKILL ROW HOVER — dim siblings
+  // 16. SKILL CATEGORY HOVER — dim siblings
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  const skillsList = document.querySelector(".skills-list");
-  if (skillsList) {
-    const rows = skillsList.querySelectorAll(".skill-row");
-    rows.forEach(row => {
-      row.addEventListener("mouseenter", () => {
-        rows.forEach(r => {
-          if (r !== row) { r.style.opacity = "0.3"; r.style.filter = "blur(0.4px)"; }
-        });
-        playSound("hover");
+  const skillCats = document.querySelectorAll(".skill-category");
+  skillCats.forEach(cat => {
+    cat.addEventListener("mouseenter", () => {
+      skillCats.forEach(c => {
+        if (c !== cat) { c.style.opacity = "0.35"; c.style.filter = "blur(0.3px)"; }
       });
-      row.addEventListener("mouseleave", () => {
-        rows.forEach(r => { r.style.opacity = ""; r.style.filter = ""; });
-      });
+      playSound("hover");
     });
-  }
-
-  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  // 12. PROJECT CARD — play sound on hover
-  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  document.querySelectorAll(".project-card").forEach(card => {
-    card.addEventListener("mouseenter", () => playSound("hover"));
+    cat.addEventListener("mouseleave", () => {
+      skillCats.forEach(c => { c.style.opacity = ""; c.style.filter = ""; });
+    });
   });
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  // 13. ACHIEVEMENT ITEMS — staggered entrance highlight
+  // 17. ACHIEVEMENT ITEMS — staggered highlight
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   const achList = document.querySelector(".achievements-list");
   if (achList) {
@@ -590,7 +849,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  // 14. KEYBOARD ACCESSIBILITY
+  // 18. KEYBOARD ACCESSIBILITY
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   hudCards.forEach(card => {
     card.addEventListener("keydown", (e) => {
@@ -600,6 +859,13 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => card.dispatchEvent(new MouseEvent("mouseleave", { bubbles: true })), 2000);
       }
     });
+  });
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // 19. PROJECT CARD — sound on hover
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  document.querySelectorAll(".project-card").forEach(card => {
+    card.addEventListener("mouseenter", () => playSound("hover"));
   });
 
 });
