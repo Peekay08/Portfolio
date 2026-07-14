@@ -4,9 +4,9 @@
 
 /* ─── 1. DESIGN TOKENS ──────────────────────────────────────────────────── */
 :root {
-  --color-bg:              #040405;
-  --color-bg-section:      #050507;
-  --color-bg-alt:          #06060a;
+  --color-bg:              #0a0b11;
+  --color-bg-section:      #0d0f17;
+  --color-bg-alt:          #0f111a;
   --color-accent:          #00ff66;
   --color-accent-rgb:      0, 255, 102;
   --color-accent-dim:      rgba(0, 255, 102, 0.07);
@@ -14,8 +14,8 @@
   --color-text-primary:    #f0f0f5;
   --color-text-muted:      #9ba0b0;
   --color-text-dim:        #4c4e5c;
-  --color-card-bg:         rgba(8, 8, 12, 0.7);
-  --color-card-border:     rgba(0, 255, 102, 0.07);
+  --color-card-bg:         rgba(17, 19, 28, 0.75);
+  --color-card-border:     rgba(0, 255, 102, 0.09);
   --color-card-hover:      rgba(0, 255, 102, 0.28);
 
   --font-headline: 'Syne', system-ui, sans-serif;
@@ -108,7 +108,7 @@ img { display: block; }
   align-items: center;
   justify-content: space-between;
   padding: 0 1.5rem 0 calc(var(--nav-w) + 1.5rem);
-  background: rgba(4, 4, 5, 0.92);
+  background: rgba(10, 11, 17, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
@@ -171,8 +171,12 @@ img { display: block; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   padding: 1.5rem 0;
+  background: rgba(10, 11, 17, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-right: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .nav-track {
@@ -192,8 +196,9 @@ img { display: block; }
   position: relative;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 0;
+  justify-content: center;
+  width: 100%;
+  height: 38px;
   transition: all 0.3s var(--ease-out);
   z-index: 1;
 }
@@ -212,12 +217,11 @@ img { display: block; }
   font-size: 8px;
   letter-spacing: 1px;
   color: var(--color-text-dim);
-  transition: color 0.3s ease;
+  transition: all 0.25s var(--ease-out);
   position: absolute;
-  left: calc(100% + 6px);
+  left: 42px;
   white-space: nowrap;
-  opacity: 0;
-  transform: translateX(-4px);
+  opacity: 0.6;
 }
 
 .nav-label {
@@ -226,22 +230,24 @@ img { display: block; }
   letter-spacing: 2px;
   color: transparent;
   position: absolute;
-  left: calc(100% + 28px);
+  left: 62px;
   white-space: nowrap;
   opacity: 0;
-  transform: translateX(-4px);
+  transform: translateX(-6px);
   transition: all 0.25s var(--ease-out);
   pointer-events: none;
 }
 
 /* Show label on hover */
-.nav-item:hover .nav-num,
+.nav-item:hover .nav-num {
+  opacity: 1;
+  color: var(--color-accent);
+}
 .nav-item:hover .nav-label {
   opacity: 1;
   transform: translateX(0);
+  color: var(--color-accent);
 }
-.nav-item:hover .nav-num  { color: var(--color-text-muted); }
-.nav-item:hover .nav-label { color: var(--color-accent); }
 
 /* Active state */
 .nav-item.active .nav-dot {
@@ -250,7 +256,7 @@ img { display: block; }
   box-shadow: 0 0 8px rgba(0,255,102,0.5);
 }
 .nav-item.active .nav-num {
-  opacity: 1; transform: translateX(0);
+  opacity: 1;
   color: var(--color-accent);
 }
 
@@ -363,7 +369,7 @@ img { display: block; }
 .hero-vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 58% 48%, transparent 20%, var(--color-bg) 76%);
+  background: radial-gradient(ellipse at 73% 48%, transparent 20%, var(--color-bg) 76%);
   z-index: 2;
   pointer-events: none;
 }
@@ -372,7 +378,7 @@ img { display: block; }
 .portrait-container {
   position: absolute;
   top: 50%;
-  left: 57%;
+  left: 73%;
   transform: translate(-50%, -50%);
   width: 44vw;
   height: 92vh;
@@ -686,12 +692,21 @@ img { display: block; }
 }
 .about-chip {
   font-family: var(--font-mono);
-  font-size: 9px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.07);
-  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  background: rgba(0, 255, 102, 0.03);
+  border: 1px solid rgba(0, 255, 102, 0.15);
+  padding: 6px 14px;
   border-radius: 50px;
-  color: var(--color-text-muted);
+  color: var(--color-text-primary);
+  transition: all 0.3s var(--ease-out);
+}
+.about-chip:hover {
+  background: var(--color-accent-dim);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 12px rgba(0, 255, 102, 0.25);
+  transform: translateY(-2px);
+  color: var(--color-accent);
 }
 
 /* ─── 12. PROJECTS SECTION ──────────────────────────────────────────────── */
@@ -712,6 +727,9 @@ img { display: block; }
   transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s var(--ease-out);
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 .project-card::before {
   content: '';
@@ -853,6 +871,7 @@ img { display: block; }
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
+  margin-top: auto;
 }
 .stack-chip {
   font-family: var(--font-mono);
@@ -1675,19 +1694,54 @@ img { display: block; }
  
 /* ── PROJECTS GRID — expand to 2-col on extra cards ─────────────── */
 /* The grid now has up to 5 cards; keep featured large, rest equal */
-.projects-grid {
-  grid-template-columns: 1.4fr 1fr 1fr;
-  grid-template-rows: auto auto;
-}
-#project-nexus {
-  grid-column: 1;
-  grid-row: 1 / 3;
-}
-#project-portfolio,
-#project-academic,
-#project-cpp-exercises,
-#project-github {
-  grid-column: auto;
+@media (min-width: 1101px) {
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 1.2rem;
+    align-items: stretch;
+  }
+  
+  #project-nexus {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+  
+  #project-labs {
+    grid-column: 2 / 4;
+    grid-row: 1;
+  }
+  
+  #project-portfolio {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  
+  #project-kitchen {
+    grid-column: 3;
+    grid-row: 2;
+  }
+  
+  #project-persol {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  
+  #project-cpp-exercises {
+    grid-column: 2;
+    grid-row: 3;
+  }
+  
+  #project-github {
+    grid-column: 3;
+    grid-row: 3;
+  }
+  
+  #project-academic {
+    grid-column: 1 / 4;
+    grid-row: 4;
+  }
 }
  
 /* ── GITHUB STATS CARD ───────────────────────────────────────────── */
@@ -1928,17 +1982,53 @@ img { display: block; }
 }
 
 /* ── STACK LAYOUT — give figma block more room ───────────────────── */
-.stack-layout {
-  display: grid;
-  grid-template-columns: 380px 1fr;   /* fixed skill col, figma gets the rest */
-  gap: clamp(2rem, 3.5vw, 4rem);
-  align-items: start;
-}
- 
-/* ── SKILLS LIST — stretch it out so it matches figma height ─────── */
-.tech-skills-block {
-  position: sticky;
-  top: calc(var(--header-h) + 2rem);  /* sticks while you scroll figma */
+@media (min-width: 1101px) {
+  .stack-layout {
+    display: grid;
+    grid-template-columns: 380px 1fr;   /* fixed skill col, figma gets the rest */
+    gap: clamp(2rem, 3.5vw, 4rem);
+    align-items: stretch;
+  }
+   
+  .tech-skills-block {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+   
+  .manifesto-card {
+    margin-top: 1.5rem;
+    padding: 1.4rem;
+    border: 1px solid rgba(0, 255, 102, 0.08);
+    background: rgba(0, 255, 102, 0.01);
+    border-radius: 8px;
+    flex-grow: 1; /* Automatically stretches to fill the remaining height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .manifesto-label {
+    font-family: var(--font-mono);
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    color: var(--color-accent);
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+  .manifesto-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+  .manifesto-list li strong {
+    color: var(--color-text-primary);
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+  }
 }
  
 .skills-list {

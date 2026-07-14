@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Promise Kolade — Systems programmer, compiler developer, and future robotics engineer. Portfolio showcasing NEXUS compiler, Figma designs, and technical expertise in C++, LLVM, and low-level software." />
-  <title>Promise Kolade — Systems Programmer & Compiler Developer</title>
+  <meta name="description" content="Promise Kolade — Frontend Engineer & Systems Programmer. Portfolio showcasing high-performance interactive web apps, Figma UI designs, and low-level software like the NEXUS compiler (C++/LLVM)." />
+  <title>Promise Kolade — Frontend Engineer & Systems Programmer</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,9 +49,17 @@
   <header class="hud-header" id="site-header">
     <div class="hud-status">
       <span class="pulse-dot"></span>
-      <span class="hud-code">SYS.STATUS: PORTFOLIO_ACTIVE // SYSTEMS_ENGINEER_ONLINE</span>
+      <span class="hud-code">SYS.STATUS: PORTFOLIO_ACTIVE // SYSTEMS_&_FRONTEND_ENGINEER_ONLINE</span>
     </div>
     <div class="hud-controls">
+      <a href="labs.html" class="hud-btn labs-btn" style="border-color:var(--color-accent);color:var(--color-accent)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:11px;height:11px">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="16"></line>
+          <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
+        <span>FRONTEND LAB</span>
+      </a>
       <button id="sfx-toggle" aria-label="Toggle UI Sound Effects" class="hud-btn sfx-btn">
         <svg class="sfx-icon sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
@@ -96,6 +104,9 @@
     <a href="#contact"  class="nav-item" data-section="contact"  id="nav-contact">
       <span class="nav-dot"></span><span class="nav-num">06</span><span class="nav-label">CONTACT</span>
     </a>
+    <a href="labs.html" class="nav-item" id="nav-labs">
+      <span class="nav-dot" style="border-color: var(--color-accent);"></span><span class="nav-num">★</span><span class="nav-label" style="color: var(--color-accent);">FRONTEND LAB</span>
+    </a>
   </nav>
 
   <!-- ═══════════════════ MAIN SCROLL CONTAINER ═══════════════════ -->
@@ -108,8 +119,8 @@
 
       <!-- Portrait System (locked to hero) -->
       <div class="portrait-container" id="portrait-container">
-        <img src="profile2.jpg" class="portrait-img portrait-base" alt="Promise Kolade grayscale portrait">
-        <img src="profile2.jpg" class="portrait-img portrait-color" alt="Promise Kolade color portrait spotlight">
+        <img src="profile3.jpeg" class="portrait-img portrait-base" alt="Promise Kolade grayscale portrait">
+        <img src="profile3.jpeg" class="portrait-img portrait-color" alt="Promise Kolade color portrait spotlight">
         <div class="portrait-fade-overlay"></div>
       </div>
 
@@ -120,7 +131,7 @@
       <div class="hero-content">
         <div class="hero-eyebrow" data-animate>
           <span class="eyebrow-bracket">[</span>
-          <span class="eyebrow-text">SYS/ENG &nbsp;·&nbsp; COMPILER_DEV &nbsp;·&nbsp; PORTFOLIO_v2.0</span>
+          <span class="eyebrow-text">FRONTEND_ENG &nbsp;·&nbsp; SYSTEMS_DEV &nbsp;·&nbsp; COMPILER_DEV</span>
           <span class="eyebrow-bracket">]</span>
         </div>
 
@@ -130,11 +141,11 @@
         </h1>
 
         <div class="role-tags" data-animate>
+          <span class="role-tag">Frontend Engineer</span>
+          <span class="role-divider">·</span>
           <span class="role-tag">Systems Programmer</span>
           <span class="role-divider">·</span>
-          <span class="role-tag">Compiler Developer</span>
-          <span class="role-divider">·</span>
-          <span class="role-tag accent">Future Robotics Engineer</span>
+          <span class="role-tag accent">Compiler Developer</span>
         </div>
 
         <div class="hero-ctas" data-animate>
@@ -144,6 +155,14 @@
               <polyline points="13 2 13 9 20 9"></polyline>
             </svg>
             VIEW PROJECTS
+          </a>
+          <a href="labs.html" class="cta-secondary labs-cta" style="border-color:var(--color-accent);color:var(--color-accent)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="2" ry="2"></rect>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="12" y1="3" x2="12" y2="21"></line>
+            </svg>
+            FRONTEND LAB
           </a>
           <button class="cta-secondary" id="hero-view-cv-btn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -161,7 +180,7 @@
         <div class="hud-info-card card" data-hotspot="skills" tabindex="0" id="hud-card-skills">
           <div class="card-borders"></div>
           <span class="hud-info-label">// FOCUS AREAS</span>
-          <p class="hud-info-text">Compilers · OS · Cybersecurity · Robotics · Game Dev</p>
+          <p class="hud-info-text">UI Engineering · Compilers · OS · Cybersecurity · Robotics</p>
         </div>
         <div class="hud-info-card card" data-hotspot="about" tabindex="0" id="hud-card-status">
   <div class="card-borders"></div>
@@ -204,22 +223,22 @@
           <!-- Bio -->
           <div class="about-bio" data-animate>
             <p class="bio-text" data-animate>
-              I enjoy understanding systems.
+              I build at the intersection of systems engineering and high-fidelity interface design.
             </p>
             <p class="bio-text" data-animate>
-              Whether that's a compiler pipeline, a kernel scheduler, a network protocol, or a user interface — I'm drawn to how small, precise components combine into something much larger.
+              Whether that's a compiler pipeline, a kernel scheduler, a network protocol, or a pixel-perfect user interface — I'm drawn to how small, precise components combine into something much larger. I enjoy designing interactive web applications just as much as writing low-level code.
             </p>
             <p class="bio-text" data-animate>
-              Right now that curiosity lives in <strong>NEXUS</strong>: a universal compilation engine I'm building from scratch in C++. Lexer, parser, AST, IR design, LLVM backend — each layer built on the last. It's taught me more about computer science than any course has.
+              Currently, my engineering focus is divided between systems programming with <strong>NEXUS</strong> (a universal compilation engine in C++ and LLVM) and crafting premium, highly interactive user experiences in my <strong>Frontend Lab</strong>. I believe that understanding the full stack—from bare metal to browser pixels—makes a developer truly versatile.
             </p>
             <p class="bio-text" data-animate>
-              Outside of compilers: I design interfaces in Figma, study Mandarin, and play violin when the build breaks.
+              Outside of coding: I design UI prototypes in Figma, study Mandarin Chinese, and play violin when the build breaks.
             </p>
 
             <div class="career-vision" data-animate>
               <span class="vision-label">// CAREER VISION</span>
               <p class="vision-text">
-                My long-term goal is to build software that bridges <strong>operating systems</strong>, <strong>cyber-physical systems</strong>, <strong>robotics</strong>, and <strong>next-generation development platforms</strong> — tools that don't just run on machines, but fundamentally change what machines can do.
+                My goal is to build tools and platforms that combine <strong>systems-level performance</strong> with <strong>world-class frontend interfaces</strong>. I want to design operating systems, robotics control platforms, and next-generation development environments that are incredibly powerful under the hood, yet beautifully intuitive and responsive for developers and end-users alike.
               </p>
             </div>
           </div>
@@ -401,6 +420,37 @@
   </div>
 </article>
 
+          <!-- Frontend Engineering Lab & Dashboard -->
+          <article class="project-card project-featured" data-animate id="project-labs" style="border-color: var(--color-accent);">
+            <div class="project-top-row">
+              <div class="project-status status-active" style="color: var(--color-accent);">
+                <span class="status-dot" style="background-color: var(--color-accent);box-shadow: 0 0 6px var(--color-accent);"></span>INTERACTIVE EXPERIMENT
+              </div>
+              <a href="labs.html" class="project-gh-link" style="color: var(--color-accent);" aria-label="Enter Frontend Lab">
+                LAB SHIFT →
+              </a>
+            </div>
+            <h3 class="project-name">FRONTEND ENGINEERING LAB</h3>
+            <p class="project-tagline">Interactive Interface & Component Dashboard</p>
+            <p class="project-desc">
+              A comprehensive standalone developer dashboard built to demonstrate modern frontend engineering capabilities. Features interactive UI components, an animation gallery, a live drag-and-drop Kanban playground, an API-driven catalog with debounced searching, complex forms with live validation meters, and a built-in responsive morph simulator.
+            </p>
+            <div class="project-links-row">
+              <a href="labs.html" class="project-live-link" style="color: var(--color-accent);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                ENTER THE LAB →
+              </a>
+            </div>
+            <div class="project-stack-chips">
+              <span class="stack-chip">Custom Elements</span>
+              <span class="stack-chip">State Control</span>
+              <span class="stack-chip">A11y (ARIA)</span>
+              <span class="stack-chip">API Ingestion</span>
+              <span class="stack-chip">Motion Design</span>
+              <span class="stack-chip">Responsive Grid</span>
+            </div>
+          </article>
+
           <!-- Portfolio -->
           <article class="project-card" data-animate id="project-portfolio">
             <div class="project-top-row">
@@ -423,6 +473,37 @@
               <span class="stack-chip">Vanilla JS</span>
               <span class="stack-chip">Web Audio API</span>
               <span class="stack-chip">SVG Animation</span>
+            </div>
+          </article>
+
+          <!-- Chuks Kitchen -->
+          <article class="project-card" data-animate id="project-kitchen">
+            <div class="project-top-row">
+              <div class="project-status status-complete">
+                <span class="status-dot"></span>COMPLETE
+              </div>
+              <a href="https://github.com/Peekay08/Chuk-s-Kitchen" target="_blank" rel="noopener" class="project-gh-link" aria-label="View Chuks Kitchen on GitHub">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                GITHUB →
+              </a>
+            </div>
+            <h3 class="project-name">CHUK'S KITCHEN</h3>
+            <p class="project-tagline">Responsive Food Delivery Web App</p>
+            <p class="project-desc">
+              A responsive, multi-page food delivery platform designed and coded from scratch. Features an interactive menu catalog, category filtering, a dynamic shopping cart state system, and an order checkout workflow. Structured with clean semantics, responsive CSS grids, and modular JavaScript.
+            </p>
+            <div class="project-links-row">
+              <a href="https://peekay08.github.io/Chuk-s-Kitchen/" target="_blank" rel="noopener" class="project-live-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                LIVE DEMO →
+              </a>
+            </div>
+            <div class="project-stack-chips">
+              <span class="stack-chip">HTML5</span>
+              <span class="stack-chip">CSS3</span>
+              <span class="stack-chip">Vanilla JS</span>
+              <span class="stack-chip">Figma UI/UX</span>
+              <span class="stack-chip">State Management</span>
             </div>
           </article>
 
@@ -578,64 +659,85 @@
 
           <!-- Engineering Skills — Identity Categories -->
           <div class="tech-skills-block" data-animate>
-            <span class="block-label">// ENGINEERING IDENTITY</span>
+            <span class="block-label">// TECH STACK & CORE EXPERTISE</span>
             <div class="skill-categories" id="skill-categories">
+              <div class="skill-category" data-assemble="skill-cat" style="--bar-width:92%">
+                <div class="skill-cat-header">
+                  <span class="skill-cat-name">Frontend &amp; UI Architecture</span>
+                  <span class="skill-cat-tech">React  ·  Vanilla JS  ·  State Control  ·  Custom Elements</span>
+                </div>
+                <div class="skill-cat-bar-wrap"><div class="skill-cat-bar-fill"></div></div>
+                <div class="skill-cat-badges">
+                  <span class="skill-badge">React</span>
+                  <span class="skill-badge">Vanilla JS (ES6+)</span>
+                  <span class="skill-badge">State Management</span>
+                  <span class="skill-badge">Custom Elements</span>
+                </div>
+              </div>
+              <div class="skill-category" data-assemble="skill-cat" style="--bar-width:90%">
+                <div class="skill-cat-header">
+                  <span class="skill-cat-name">Creative Web &amp; Motion</span>
+                  <span class="skill-cat-tech">HTML5/CSS3  ·  Tailwind  ·  Web Audio API  ·  SVG Animation  ·  WAI-ARIA</span>
+                </div>
+                <div class="skill-cat-bar-wrap"><div class="skill-cat-bar-fill"></div></div>
+                <div class="skill-cat-badges">
+                  <span class="skill-badge">HTML5 / CSS3</span>
+                  <span class="skill-badge">Tailwind CSS</span>
+                  <span class="skill-badge">Web Audio API</span>
+                  <span class="skill-badge">SVG Animation</span>
+                  <span class="skill-badge">A11y (WAI-ARIA)</span>
+                </div>
+              </div>
               <div class="skill-category" data-assemble="skill-cat" style="--bar-width:88%">
                 <div class="skill-cat-header">
-                  <span class="skill-cat-name">Systems Programming</span>
-                  <span class="skill-cat-tech">C++  ·  LLVM  ·  Linux  ·  CMake</span>
+                  <span class="skill-cat-name">Systems &amp; Compiler Dev</span>
+                  <span class="skill-cat-tech">C++  ·  LLVM  ·  AST/IR Design  ·  Arena Allocators  ·  VM Execution</span>
                 </div>
                 <div class="skill-cat-bar-wrap"><div class="skill-cat-bar-fill"></div></div>
                 <div class="skill-cat-badges">
                   <span class="skill-badge">C++</span>
                   <span class="skill-badge">LLVM</span>
-                  <span class="skill-badge">Linux / POSIX</span>
-                  <span class="skill-badge">CMake</span>
-                  <span class="skill-badge">Arena Allocators</span>
                   <span class="skill-badge">AST Design</span>
+                  <span class="skill-badge">Arena Allocators</span>
+                  <span class="skill-badge">IR / VM</span>
                 </div>
               </div>
-              <div class="skill-category" data-assemble="skill-cat" style="--bar-width:72%">
+              <div class="skill-category" data-assemble="skill-cat" style="--bar-width:76%">
                 <div class="skill-cat-header">
-                  <span class="skill-cat-name">Interface Engineering</span>
-                  <span class="skill-cat-tech">HTML  ·  CSS  ·  JS  ·  Figma</span>
+                  <span class="skill-cat-name">Tooling &amp; POSIX Systems</span>
+                  <span class="skill-cat-tech">CMake  ·  Git  ·  Linux/POSIX  ·  Shell Scripting</span>
                 </div>
                 <div class="skill-cat-bar-wrap"><div class="skill-cat-bar-fill"></div></div>
                 <div class="skill-cat-badges">
-                  <span class="skill-badge">HTML5</span>
-                  <span class="skill-badge">CSS3</span>
-                  <span class="skill-badge">Vanilla JS</span>
-                  <span class="skill-badge">Figma</span>
-                  <span class="skill-badge">Web Audio API</span>
-                  <span class="skill-badge">SVG Animation</span>
-                </div>
-              </div>
-              <div class="skill-category" data-assemble="skill-cat" style="--bar-width:58%">
-                <div class="skill-cat-header">
-                  <span class="skill-cat-name">Scripting &amp; Tooling</span>
-                  <span class="skill-cat-tech">Python  ·  Git  ·  Shell</span>
-                </div>
-                <div class="skill-cat-bar-wrap"><div class="skill-cat-bar-fill"></div></div>
-                <div class="skill-cat-badges">
-                  <span class="skill-badge">Python</span>
+                  <span class="skill-badge">CMake</span>
                   <span class="skill-badge">Git</span>
+                  <span class="skill-badge">Linux / POSIX</span>
                   <span class="skill-badge">Bash / Shell</span>
                   <span class="skill-badge">Build Tooling</span>
                 </div>
               </div>
-              <div class="skill-category" data-assemble="skill-cat" style="--bar-width:44%">
+              <div class="skill-category" data-assemble="skill-cat" style="--bar-width:60%">
                 <div class="skill-cat-header">
-                  <span class="skill-cat-name">Academic Study</span>
-                  <span class="skill-cat-tech">Java  ·  Mandarin  ·  Algorithms</span>
+                  <span class="skill-cat-name">Academic &amp; Languages</span>
+                  <span class="skill-cat-tech">Java  ·  Data Structures  ·  Algorithms  ·  Mandarin</span>
                 </div>
                 <div class="skill-cat-bar-wrap"><div class="skill-cat-bar-fill"></div></div>
                 <div class="skill-cat-badges">
                   <span class="skill-badge">Java</span>
-                  <span class="skill-badge">Mandarin (conversational)</span>
                   <span class="skill-badge">Data Structures</span>
-                  <span class="skill-badge">Algorithm Design</span>
+                  <span class="skill-badge">Algorithms</span>
+                  <span class="skill-badge">Mandarin (conversational)</span>
                 </div>
               </div>
+            </div>
+            
+            <div class="manifesto-card" data-animate>
+              <span class="manifesto-label">// WORKFLOW PHILOSOPHY</span>
+              <ul class="manifesto-list">
+                <li><strong>Bare-Metal to Browser:</strong> I believe in understanding software from the register level up to the paint operations.</li>
+                <li><strong>Zero-Dependency Core:</strong> Build from scratch first to master the underlying protocols, compilers, and rendering engines.</li>
+                <li><strong>Accessibility &amp; Motion:</strong> Performance, semantic HTML, and fluid interactive animations are core specifications, not afterthoughts.</li>
+              </ul>
             </div>
           </div><!-- /tech-skills-block -->
 
@@ -960,7 +1062,7 @@
             <div class="availability-box">
               <div class="avail-row">
                 <span class="pulse-dot"></span>
-                <span class="avail-text">Available for systems engineering, compiler development, and performance-focused opportunities.</span>
+                <span class="avail-text">Available for frontend engineering, systems development, and high-performance interactive projects.</span>
               </div>
               <button class="download-cv-btn" id="contact-view-cv-btn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -991,7 +1093,7 @@
       <div class="cv-top-bar">
         <div>
           <div class="cv-name">PROMISE KOLADE</div>
-          <div class="cv-sub">SYSTEMS PROGRAMMER  ·  COMPILER DEVELOPER  ·  2026</div>
+          <div class="cv-sub">FRONTEND ENGINEER  ·  SYSTEMS PROGRAMMER  ·  COMPILER DEVELOPER  ·  2026</div>
         </div>
         <button class="cv-close-btn" id="cv-close-btn" aria-label="Close CV">✕ CLOSE</button>
       </div>

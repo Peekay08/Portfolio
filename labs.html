@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Promise Kolade — Frontend Engineering Laboratory. An interactive showcase demonstrating components, state management, accessibility, animations, and API consumption." />
+  <title>Promise Kolade — Frontend Engineering Lab</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link href="labs.css" rel="stylesheet">
+</head>
+<body class="theme-cyberpunk">
+
+  <!-- Custom Cursor Overlay -->
+  <div id="cursor-ring" aria-hidden="true"></div>
+  <div id="cursor-dot" aria-hidden="true"></div>
+
+  <!-- Background overlay details -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+  <div class="grid-overlay" aria-hidden="true"></div>
+
+  <!-- Main Container -->
+  <div class="lab-container">
+
+    <!-- ═══ SIDEBAR NAVIGATION (Dashboard Control) ═══ -->
+    <aside class="lab-sidebar" aria-label="Laboratory control panel">
+      <div class="sidebar-header">
+        <a href="index.html" class="back-link" aria-label="Return to portfolio home">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-back">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          PORTFOLIO
+        </a>
+        <div class="lab-title">
+          <span>FRONTEND</span>
+          <span class="accent-text">LAB // SYS_V3</span>
+        </div>
+      </div>
+
+      <!-- Navigation links switching dashboard tabs -->
+      <nav class="sidebar-nav" aria-label="Lab categories">
+        <button class="nav-btn active" data-tab="overview" id="btn-tab-overview">
+          <span class="nav-btn-num">01</span> <span class="nav-btn-label">Dashboard Home</span>
+        </button>
+        <button class="nav-btn" data-tab="components" id="btn-tab-components">
+          <span class="nav-btn-num">02</span> <span class="nav-btn-label">UI Component Lab</span>
+        </button>
+        <button class="nav-btn" data-tab="animations" id="btn-tab-animations">
+          <span class="nav-btn-num">03</span> <span class="nav-btn-label">Animation Gallery</span>
+        </button>
+        <button class="nav-btn" data-tab="playground" id="btn-tab-playground">
+          <span class="nav-btn-num">04</span> <span class="nav-btn-label">Experiments</span>
+        </button>
+        <button class="nav-btn" data-tab="apis" id="btn-tab-apis">
+          <span class="nav-btn-num">05</span> <span class="nav-btn-label">API Integrations</span>
+        </button>
+        <button class="nav-btn" data-tab="forms" id="btn-tab-forms">
+          <span class="nav-btn-num">06</span> <span class="nav-btn-label">Forms Showcase</span>
+        </button>
+        <button class="nav-btn" data-tab="responsive" id="btn-tab-responsive">
+          <span class="nav-btn-num">07</span> <span class="nav-btn-label">Responsive Morph</span>
+        </button>
+        <button class="nav-btn" data-tab="design-system" id="btn-tab-design-system">
+          <span class="nav-btn-num">08</span> <span class="nav-btn-label">Design Language</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Footer Controls -->
+      <div class="sidebar-footer">
+        <div class="status-indicator">
+          <span class="pulse-dot"></span>
+          <span class="status-code">LAB.STATUS: ENG_ONLINE</span>
+        </div>
+        <div class="control-row">
+          <button id="theme-toggle" class="control-btn" aria-label="Toggle Theme: Tech Light or Cyberpunk Dark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="theme-icon">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <span class="control-text">THEME: DARK</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ═══ MAIN WORKSPACE (Tab Content Area) ═══ -->
+    <main class="lab-workspace" id="lab-workspace" tabindex="-1">
+      
+      <!-- TOP STATUS BAR -->
+      <header class="workspace-header">
+        <div class="header-breadcrumbs" id="breadcrumbs">
+          <span class="breadcrumb-root">LABS</span>
+          <span class="breadcrumb-separator">/</span>
+          <span class="breadcrumb-current" id="current-crumb">DASHBOARD HOME</span>
+        </div>
+        <div class="header-search">
+          <button class="search-trigger-btn" id="search-trigger" aria-label="Open Command Palette (Ctrl+K)">
+            <kbd class="kbd-key">Ctrl</kbd> + <kbd class="kbd-key">K</kbd> Search Labs...
+          </button>
+        </div>
+      </header>
+
+      <!-- ════ 01 / DASHBOARD HOME VIEW ════ -->
+      <section class="tab-panel active" id="panel-overview" role="tabpanel" aria-labelledby="btn-tab-overview">
+        <div class="panel-inner animate-fade-in">
+          <div class="welcome-banner">
+            <h1>My Frontend Engineering Lab</h1>
+            <p>Welcome to my validation workshop. I built this dashboard to showcase and benchmark the reusable components, layout systems, and animation pipelines I design. It serves as my personal playground for testing accessibility, state management, and asset performance under real-world conditions.</p>
+          </div>
+
+          <!-- Mini Analytical Widgets -->
+          <div class="dashboard-grid">
+            <div class="dash-card stat-card">
+              <div class="card-title">// SYSTEM HEALTH</div>
+              <div class="stat-value">99.8<span class="unit">%</span></div>
+              <div class="stat-desc">Calculated module loading speeds and layout paint latency are optimal</div>
+              <div class="stat-sparkline" aria-hidden="true">
+                <svg viewBox="0 0 120 30" class="sparkline-svg">
+                  <path d="M0,15 L20,12 L40,18 L60,8 L80,22 L100,5 L120,8" fill="none" stroke="var(--color-accent)" stroke-width="2"></path>
+                </svg>
+              </div>
+            </div>
+
+            <div class="dash-card stat-card">
+              <div class="card-title">// ACCESSIBILITY INDEX</div>
+              <div class="stat-value">100<span class="unit">/100</span></div>
+              <div class="stat-desc">WAI-ARIA specifications and semantic structure successfully verified</div>
+              <div class="stat-sparkline" aria-hidden="true">
+                <svg viewBox="0 0 120 30" class="sparkline-svg">
+                  <path d="M0,20 L20,20 L40,20 L60,18 L80,18 L100,5 L120,5" fill="none" stroke="var(--color-accent)" stroke-width="2"></path>
+                </svg>
+              </div>
+            </div>
+
+            <div class="dash-card stat-card">
+              <div class="card-title">// INTERACTIVE MODULES</div>
+              <div class="stat-value" id="active-modules-count">24</div>
+              <div class="stat-desc">Interactive UI states active across my local workspaces</div>
+              <div class="stat-sparkline" aria-hidden="true">
+                <svg viewBox="0 0 120 30" class="sparkline-svg">
+                  <path d="M0,25 L20,20 L40,15 L60,12 L80,8 L100,6 L120,5" fill="none" stroke="var(--color-accent)" stroke-width="2"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Dashboard Interactive Section (Data Table) -->
+          <div class="dash-card data-table-card">
+            <div class="card-header-row">
+              <h2 class="card-title">// MY DEVELOPMENT TASKS & BENCHMARKS</h2>
+              <div class="table-actions">
+                <input type="text" id="table-search-input" class="table-search" placeholder="Filter tasks..." aria-label="Search data table rows">
+                <select id="table-filter-select" class="table-select" aria-label="Filter tasks by status">
+                  <option value="all">All statuses</option>
+                  <option value="complete">Complete</option>
+                  <option value="in-progress">In Progress</option>
+                  <option value="backlog">Backlog</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="table-wrapper">
+              <table class="lab-table" id="dashboard-tasks-table">
+                <thead>
+                  <tr>
+                    <th scope="col" class="sortable" data-sort="id">Task ID <span class="sort-icon">↕</span></th>
+                    <th scope="col" class="sortable" data-sort="name">Module <span class="sort-icon">↕</span></th>
+                    <th scope="col" class="sortable" data-sort="category">Category <span class="sort-icon">↕</span></th>
+                    <th scope="col" class="sortable" data-sort="performance">Perf score <span class="sort-icon">↕</span></th>
+                    <th scope="col" class="sortable" data-sort="status">Status <span class="sort-icon">↕</span></th>
+                  </tr>
+                </thead>
+                <tbody id="table-body-tasks">
+                  <!-- Generated dynamically in labs.js -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Table Pagination -->
+            <div class="table-pagination">
+              <span class="pagination-info" id="pagination-info-text">Showing 1 to 5 of 12 tasks</span>
+              <div class="pagination-buttons">
+                <button class="pagination-btn" id="pagination-prev-btn" aria-label="Previous page">Prev</button>
+                <button class="pagination-btn active" data-page="1">1</button>
+                <button class="pagination-btn" data-page="2">2</button>
+                <button class="pagination-btn" data-page="3">3</button>
+                <button class="pagination-btn" id="pagination-next-btn" aria-label="Next page">Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ 02 / UI COMPONENT LAB VIEW ════ -->
+      <section class="tab-panel" id="panel-components" role="tabpanel" aria-labelledby="btn-tab-components">
+        <div class="panel-inner animate-fade-in">
+          <div class="view-header">
+            <h2>My Reusable UI Components</h2>
+            <p>These are UI modules I wrote from scratch using raw HTML, CSS, and vanilla ES6 JavaScript. Building them without third-party frameworks allowed me to understand exactly how browser rendering, layout calculations, and focus states behave under constraints.</p>
+          </div>
+
+          <div class="component-grid">
+
+            <!-- Buttons Showcase -->
+            <div class="dash-card">
+              <h3 class="card-title">// BUTTON VARIANTS I BUILT</h3>
+              <div class="showcase-content flex-row">
+                <button class="lab-btn btn-primary">PRIMARY ACTION</button>
+                <button class="lab-btn btn-secondary">SECONDARY Action</button>
+                <button class="lab-btn btn-outline">OUTLINE BORDER</button>
+                <button class="lab-btn btn-glass">GLASS EFFECT</button>
+                <button class="lab-btn btn-primary" id="btn-demo-loading" aria-live="polite">
+                  <span class="btn-spinner"></span>LOADING STATE
+                </button>
+              </div>
+            </div>
+
+            <!-- Modal Showcase -->
+            <div class="dash-card">
+              <h3 class="card-title">// ACCESS MODAL DIALOGS</h3>
+              <div class="showcase-content">
+                <p class="section-desc">I designed this modal with accessibility in mind. When active, it traps tab-focus inside the dialog box, blocks outside key events, and dismisses smoothly on Esc, showing how I implement standard accessible patterns.</p>
+                <button class="lab-btn btn-primary" id="trigger-modal-demo">LAUNCH ACCESS MODAL</button>
+              </div>
+            </div>
+
+            <!-- Dropdown Showcase -->
+            <div class="dash-card">
+              <h3 class="card-title">// DROPDOWN MENU</h3>
+              <div class="showcase-content">
+                <div class="custom-dropdown" id="dropdown-demo">
+                  <button class="dropdown-trigger" aria-haspopup="listbox" aria-expanded="false" id="dropdown-trigger-btn">
+                    <span>Select target CPU...</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="dropdown-arrow-icon">
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  </button>
+                  <ul class="dropdown-list" role="listbox" aria-labelledby="dropdown-trigger-btn" tabindex="-1">
+                    <li class="dropdown-option" role="option" aria-selected="false" data-value="x86_64">Intel/AMD x86_64</li>
+                    <li class="dropdown-option" role="option" aria-selected="false" data-value="arm64">Apple/ARM64</li>
+                    <li class="dropdown-option" role="option" aria-selected="false" data-value="wasm32">WebAssembly WASM</li>
+                    <li class="dropdown-option" role="option" aria-selected="false" data-value="riscv64">RISC-V 64-bit</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tooltip Showcase -->
+            <div class="dash-card">
+              <h3 class="card-title">// TOOLTIPS</h3>
+              <div class="showcase-content flex-row">
+                <span class="tooltip-wrapper">
+                  <button class="lab-btn btn-secondary" aria-describedby="tooltip-comp">Hover / Tab Focus Me</button>
+                  <span class="tooltip-bubble" id="tooltip-comp" role="tooltip">A11y Compliant Tooltip Details</span>
+                </span>
+                <span class="tooltip-wrapper">
+                  <button class="lab-btn btn-outline" aria-describedby="tooltip-ir">IR Compiler Stage</button>
+                  <span class="tooltip-bubble bubble-top" id="tooltip-ir" role="tooltip">Translates AST to platform IR</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Accordion Showcase -->
+            <div class="dash-card full-width">
+              <h3 class="card-title">// ACCORDIONS</h3>
+              <div class="showcase-content">
+                <div class="accordion-group">
+                  <div class="accordion-item">
+                    <button class="accordion-header" aria-expanded="false" aria-controls="acc-content-1">
+                      <span>How does this compiler pipeline integrate with the frontend?</span>
+                      <span class="accordion-icon">+</span>
+                    </button>
+                    <div id="acc-content-1" class="accordion-panel" role="region">
+                      <div class="accordion-panel-inner">
+                        I designed the playground so that my compiler AST nodes are recursively rendered as interactive DOM nodes, connecting my systems logic with visual browser execution.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <button class="accordion-header" aria-expanded="false" aria-controls="acc-content-2">
+                      <span>Are these styles compatible with responsive constraints?</span>
+                      <span class="accordion-icon">+</span>
+                    </button>
+                    <div id="acc-content-2" class="accordion-panel" role="region">
+                      <div class="accordion-panel-inner">
+                        I configured every component stylesheet to rely strictly on relative metrics (em, rem, vw) and flex/grid systems, ensuring they remain perfectly responsive down to 320px width constraints.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Toast Showcase -->
+            <div class="dash-card">
+              <h3 class="card-title">// TOAST NOTIFICATIONS</h3>
+              <div class="showcase-content flex-row">
+                <button class="lab-btn btn-secondary" id="btn-toast-info">INFO TOAST</button>
+                <button class="lab-btn btn-primary" id="btn-toast-success">SUCCESS TOAST</button>
+                <button class="lab-btn btn-outline" style="border-color:red;color:red" id="btn-toast-error">ERROR TOAST</button>
+              </div>
+            </div>
+
+            <!-- Tabs Showcase -->
+            <div class="dash-card">
+              <h3 class="card-title">// TABS MODULE</h3>
+              <div class="showcase-content">
+                <div class="inner-tabs-container">
+                  <div class="inner-tabs-bar" role="tablist" aria-label="Code language selectors">
+                    <button class="inner-tab-btn active" role="tab" aria-selected="true" aria-controls="tabpanel-cpp" id="tab-cpp">C++ Source</button>
+                    <button class="inner-tab-btn" role="tab" aria-selected="false" aria-controls="tabpanel-wasm" id="tab-wasm">WASM Out</button>
+                  </div>
+                  <div class="inner-tab-content-panel active" id="tabpanel-cpp" role="tabpanel" aria-labelledby="tab-cpp">
+                    <pre><code>int main() {
+  std::cout &lt;&lt; "NEXUS IR Initialized";
+  return 0;
+}</code></pre>
+                  </div>
+                  <div class="inner-tab-content-panel" id="tabpanel-wasm" role="tabpanel" aria-labelledby="tab-wasm">
+                    <pre><code>(module
+  (func $main (result i32)
+    i32.const 42
+  )
+  (export "main" (func $main))
+)</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pricing Cards (cyberpunk visual blocks) -->
+            <div class="dash-card">
+              <h3 class="card-title">// PRICING MODULES</h3>
+              <div class="showcase-content flex-row" style="justify-content: space-between;">
+                <div class="pricing-card" style="border: 1px solid var(--color-border); padding: 16px; border-radius: var(--radius); width: 48%; text-align: center; background: rgba(255,255,255,0.01); display: flex; flex-direction: column; justify-content: space-between; min-height: 160px;">
+                  <div>
+                    <div style="font-family: var(--font-mono); font-size: 8px; color: var(--color-text-dim);">BASIC CLIENT</div>
+                    <div style="font-size: 18px; font-weight: 700; margin: 4px 0; color: var(--color-text-primary);">$0 <span style="font-size: 9px; font-weight: normal; color: var(--color-text-muted);">/mo</span></div>
+                    <ul style="font-size: 9px; text-align: left; margin: 8px 0; color: var(--color-text-muted); display: flex; flex-direction: column; gap: 3px; list-style-type: none;">
+                      <li>✓ Local tokenization</li>
+                      <li>✓ AST visualization</li>
+                      <li>✗ No WASM exports</li>
+                    </ul>
+                  </div>
+                  <button class="lab-btn btn-secondary" style="width: 100%; padding: 4px; font-size: 8px;">DEPLOY</button>
+                </div>
+                <div class="pricing-card active" style="border: 1px solid var(--color-accent); padding: 16px; border-radius: var(--radius); width: 48%; text-align: center; background: var(--color-accent-dim); box-shadow: 0 0 10px rgba(var(--color-accent-rgb), 0.05); display: flex; flex-direction: column; justify-content: space-between; min-height: 160px;">
+                  <div>
+                    <div style="font-family: var(--font-mono); font-size: 8px; color: var(--color-accent); font-weight: 600;">PRO PIPELINE</div>
+                    <div style="font-size: 18px; font-weight: 700; margin: 4px 0; color: var(--color-text-primary);">$29 <span style="font-size: 9px; font-weight: normal; color: var(--color-text-muted);">/mo</span></div>
+                    <ul style="font-size: 9px; text-align: left; margin: 8px 0; color: var(--color-text-muted); display: flex; flex-direction: column; gap: 3px; list-style-type: none;">
+                      <li>✓ All Basic compiler layers</li>
+                      <li>✓ Full WASM compilation</li>
+                      <li>✓ Parallel LLVM pipelines</li>
+                    </ul>
+                  </div>
+                  <button class="lab-btn btn-primary" style="width: 100%; padding: 4px; font-size: 8px;">DEPLOY PRO</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Timeline component -->
+            <div class="dash-card">
+              <h3 class="card-title">// SYSTEM TIMELINE MODULE</h3>
+              <div class="showcase-content">
+                <div class="mini-timeline" style="display: flex; flex-direction: column; gap: 12px; position: relative; padding-left: 16px; padding-top: 4px;">
+                  <div style="position: absolute; left: 4px; top: 4px; bottom: 4px; width: 1px; background: var(--color-border);"></div>
+                  <div class="timeline-node" style="position: relative;">
+                    <div style="position: absolute; left: -15px; top: 4px; width: 5px; height: 5px; border-radius: 50%; background: var(--color-accent); box-shadow: 0 0 6px var(--color-accent);"></div>
+                    <div style="font-family: var(--font-mono); font-size: 8px; color: var(--color-accent);">PHASE 03 // ACTIVE</div>
+                    <div style="font-weight: 600; font-size: 11px;">LLVM Optimization IR Integration</div>
+                  </div>
+                  <div class="timeline-node" style="position: relative;">
+                    <div style="position: absolute; left: -15px; top: 4px; width: 5px; height: 5px; border-radius: 50%; background: var(--color-text-dim);"></div>
+                    <div style="font-family: var(--font-mono); font-size: 8px; color: var(--color-text-dim);">PHASE 02 // RESOLVED</div>
+                    <div style="font-weight: 600; font-size: 11px; color: var(--color-text-muted);">Recursive Error Bounds Recovery</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ 03 / ANIMATION GALLERY VIEW ════ -->
+      <section class="tab-panel" id="panel-animations" role="tabpanel" aria-labelledby="btn-tab-animations">
+        <div class="panel-inner animate-fade-in">
+          <div class="view-header">
+            <h2>My Animation &amp; Motion Showcase</h2>
+            <p>I designed these animations to explore performance-optimized motion design. I rely on CSS custom properties, hardware-accelerated transitions, and inline SVG manipulations to prevent layout thrashing on the main browser thread.</p>
+          </div>
+
+          <div class="component-grid">
+
+            <!-- Card Hover Effects -->
+            <div class="dash-card anim-card" id="anim-card-glitch">
+              <div class="card-borders"></div>
+              <h3 class="card-title">// CYBERPUNK GLITCH HOVER</h3>
+              <div class="showcase-content anim-content">
+                <div class="glitch-text" data-text="INTERFACE">INTERFACE</div>
+                <p>Hover to trigger keyframe shearing and chromatic aberration offsets I created using CSS clip-path keyframe animations.</p>
+              </div>
+            </div>
+
+            <!-- Loading Skeletons -->
+            <div class="dash-card">
+              <h3 class="card-title">// SKELETON LOADERS</h3>
+              <div class="showcase-content">
+                <div class="skeleton-profile">
+                  <div class="skeleton skeleton-circle"></div>
+                  <div class="skeleton-lines">
+                    <div class="skeleton skeleton-line short"></div>
+                    <div class="skeleton skeleton-line long"></div>
+                  </div>
+                </div>
+                <div class="skeleton skeleton-rect" style="margin-top:1.5rem;height:60px"></div>
+              </div>
+            </div>
+
+            <!-- Animated Counters -->
+            <div class="dash-card">
+              <h3 class="card-title">// ANIMATED COUNTERS</h3>
+              <div class="showcase-content flex-column align-center">
+                <span class="counter-display" id="stat-counter-cycles">0</span>
+                <span class="counter-label">COMPILER CYCLES RUN</span>
+                <button class="lab-btn btn-primary" id="btn-trigger-counters" style="margin-top:1rem">START SIMULATION</button>
+              </div>
+            </div>
+
+            <!-- SVG Path Animation -->
+            <div class="dash-card">
+              <h3 class="card-title">// SVG CIRCUIT PATHS</h3>
+              <div class="showcase-content flex-column align-center">
+                <svg viewBox="0 0 200 100" class="svg-circuit-board" id="svg-circuit-anim" aria-label="Interactive circuit diagram path">
+                  <!-- Static background tracks -->
+                  <path d="M10 50 L80 50 L100 20 L150 20 L170 40 L190 40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2"></path>
+                  <path d="M10 50 L80 50 L100 80 L160 80 L180 60 L190 60" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2"></path>
+                  <!-- Active glowing line paths -->
+                  <path class="circuit-path" d="M10 50 L80 50 L100 20 L150 20 L170 40 L190 40" fill="none" stroke="var(--color-accent)" stroke-width="2"></path>
+                  <path class="circuit-path path-delayed" d="M10 50 L80 50 L100 80 L160 80 L180 60 L190 60" fill="none" stroke="var(--color-accent)" stroke-width="2"></path>
+                  <!-- Circle endpoints -->
+                  <circle cx="10" cy="50" r="4" fill="var(--color-accent)"></circle>
+                  <circle class="circuit-endpoint" cx="190" cy="40" r="4" fill="var(--color-accent)"></circle>
+                  <circle class="circuit-endpoint" cx="190" cy="60" r="4" fill="var(--color-accent)"></circle>
+                </svg>
+                <p class="section-desc" style="margin-top:0.8rem">I drew this circuit board vector track and animated its stroke-dashoffset via CSS keyframes to study path interpolation timing.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ 04 / INTERACTIVE PLAYGROUND VIEW ════ -->
+      <section class="tab-panel" id="panel-playground" role="tabpanel" aria-labelledby="btn-tab-playground">
+        <div class="panel-inner animate-fade-in">
+          <div class="view-header">
+            <h2>My Interaction Experiments</h2>
+            <p>These are sandbox modules where I study complex state control, Drag-and-Drop behaviors, and custom resize boundaries directly in the DOM.</p>
+          </div>
+
+          <!-- Drag and Drop Kanban Board -->
+          <div class="dash-card full-width">
+            <h3 class="card-title">// KANBAN TASK SANDBOX (DRAG &amp; DROP)</h3>
+            <p class="section-desc" style="margin-bottom:1rem">I built this task board using the native HTML5 Drag and Drop API. To make it accessible, I mapped custom keyboard event listeners: select a card with Space, use Arrows to slide columns, and Space again to commit.</p>
+            
+            <div class="kanban-board">
+              <div class="kanban-column" id="col-backlog" data-col="backlog">
+                <div class="column-header">BACKLOG [2]</div>
+                <div class="column-cards" role="list">
+                  <div class="kanban-item card" draggable="true" id="task-lexer" role="listitem" tabindex="0" aria-grabbed="false">
+                    <div class="card-borders"></div>
+                    <div class="task-tag tag-systems">SYSTEMS</div>
+                    <div class="task-name">Write Lexer Unicode Parser</div>
+                    <div class="task-desc">Support wide UTF characters inside string literals.</div>
+                  </div>
+                  <div class="kanban-item card" draggable="true" id="task-css" role="listitem" tabindex="0" aria-grabbed="false">
+                    <div class="card-borders"></div>
+                    <div class="task-tag tag-frontend">FRONTEND</div>
+                    <div class="task-name">Optimize CSS Variables</div>
+                    <div class="task-desc">Audit variables to prevent layout paint recalculation cycles.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="kanban-column" id="col-progress" data-col="progress">
+                <div class="column-header">IN PROGRESS [1]</div>
+                <div class="column-cards" role="list">
+                  <div class="kanban-item card" draggable="true" id="task-ir" role="listitem" tabindex="0" aria-grabbed="false">
+                    <div class="card-borders"></div>
+                    <div class="task-tag tag-systems">SYSTEMS</div>
+                    <div class="task-name">Design NEXUS IR Nodes</div>
+                    <div class="task-desc">Design intermediate translation records representing structures.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="kanban-column" id="col-complete" data-col="complete">
+                <div class="column-header">COMPLETED [1]</div>
+                <div class="column-cards" role="list">
+                  <div class="kanban-item card" draggable="true" id="task-sound" role="listitem" tabindex="0" aria-grabbed="false">
+                    <div class="card-borders"></div>
+                    <div class="task-tag tag-frontend">FRONTEND</div>
+                    <div class="task-name">Procedural Audio FX</div>
+                    <div class="task-desc">Synthetic ticks generated via Web Audio API oscillators.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Split Pane Simulator -->
+          <div class="dash-card full-width">
+            <h3 class="card-title">// RESIZABLE SPLIT-PANES</h3>
+            <p class="section-desc" style="margin-bottom:1rem">I designed this split-pane window to study pointer movement tracking and boundary constraints. Drag the bar or use your left/right arrow keys to resize the visualizer panels.</p>
+            
+            <div class="split-pane-container" id="split-pane-demo">
+              <div class="pane pane-left" id="pane-left">
+                <h4>NEXUS AST Visualizer</h4>
+                <pre><code>RootNode [Program]
+ └── FuncDecl [main]
+      ├── Type [int]
+      └── BlockStmt
+           └── ExprStmt
+                └── CallExpr [print]</code></pre>
+              </div>
+              <div class="pane-divider" id="pane-divider" role="separator" aria-valuenow="50" aria-valuemin="10" aria-valuemax="90" tabindex="0" aria-label="Resize panel split width"></div>
+              <div class="pane pane-right" id="pane-right">
+                <h4>Simulated Target Output</h4>
+                <pre><code class="lang-asm">.global main
+main:
+  pushq %rbp
+  movq %rsp, %rbp
+  leaq .str_const(%rip), %rdi
+  call print
+  xorl %eax, %eax
+  popq %rbp
+  ret</code></pre>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ════ 05 / API INTEGRATIONS VIEW ════ -->
+      <section class="tab-panel" id="panel-apis" role="tabpanel" aria-labelledby="btn-tab-apis">
+        <div class="panel-inner animate-fade-in">
+          <div class="view-header">
+            <h2>My API Integration Workspace</h2>
+            <p>I connected this search portal directly to the Open Library REST API to demonstrate my handling of asynchronous data flows. It fetches systems and compiler literature in real time, utilizing an input debouncer I coded, lazy-loaded covers, and loading skeleton fallback states.</p>
+          </div>
+
+          <div class="dash-card full-width">
+            <div class="api-search-bar">
+              <label for="book-search-input" class="sr-only">Search systems programming books</label>
+              <input type="text" id="book-search-input" class="api-input" placeholder="Type compiler, assembly, algorithms, systems..." value="compiler">
+              <button class="lab-btn btn-primary" id="btn-search-books">QUERY OPEN LIBRARY</button>
+            </div>
+
+            <!-- API Results Grid -->
+            <div class="api-results-container">
+              <div class="api-status-row" id="api-status-feedback">
+                <span class="pulse-dot"></span> Ready for asynchronous query.
+              </div>
+
+              <!-- Books grid container -->
+              <div class="books-grid" id="books-grid-output">
+                <!-- Skeletons render here first -->
+                <div class="skeleton-book-card">
+                  <div class="skeleton skeleton-cover"></div>
+                  <div class="skeleton-meta">
+                    <div class="skeleton skeleton-line short"></div>
+                    <div class="skeleton skeleton-line long"></div>
+                  </div>
+                </div>
+                <div class="skeleton-book-card">
+                  <div class="skeleton skeleton-cover"></div>
+                  <div class="skeleton-meta">
+                    <div class="skeleton skeleton-line short"></div>
+                    <div class="skeleton skeleton-line long"></div>
+                  </div>
+                </div>
+                <div class="skeleton-book-card">
+                  <div class="skeleton skeleton-cover"></div>
+                  <div class="skeleton-meta">
+                    <div class="skeleton skeleton-line short"></div>
+                    <div class="skeleton skeleton-line long"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ 06 / FORM SHOWCASE VIEW ════ -->
+      <section class="tab-panel" id="panel-forms" role="tabpanel" aria-labelledby="btn-tab-forms">
+        <div class="panel-inner animate-fade-in">
+          <div class="view-header">
+            <h2>My Wizard Form Flows</h2>
+            <p>I built this multi-step flow to explore how I handle form state, live custom regex validations, password security calculations, and interactive mock drag-and-drop document upload streams.</p>
+          </div>
+
+          <div class="dash-card form-wizard-card">
+            <!-- Progress Bar -->
+            <div class="wizard-progress-bar">
+              <div class="step-indicator active" data-step="1">
+                <div class="step-circle">1</div>
+                <div class="step-title">Credentials</div>
+              </div>
+              <div class="step-line" id="step-line-12"></div>
+              <div class="step-indicator" data-step="2">
+                <div class="step-circle">2</div>
+                <div class="step-title">Profile Upload</div>
+              </div>
+              <div class="step-line" id="step-line-23"></div>
+              <div class="step-indicator" data-step="3">
+                <div class="step-circle">3</div>
+                <div class="step-title">Review</div>
+              </div>
+            </div>
+
+            <!-- Steps Containers -->
+            <form class="wizard-form" id="wizard-form-demo" novalidate>
+              
+              <!-- STEP 1 -->
+              <div class="wizard-step active" id="form-step-1">
+                <div class="form-group">
+                  <label for="wiz-email">EMAIL ADDRESS</label>
+                  <input type="email" id="wiz-email" class="form-input" placeholder="developer@nexus.org" required>
+                  <span class="field-error-msg" id="wiz-email-error" aria-live="polite"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="wiz-pwd">SECURE PASSWORD</label>
+                  <input type="password" id="wiz-pwd" class="form-input" placeholder="••••••••••••" required>
+                  <span class="field-error-msg" id="wiz-pwd-error" aria-live="polite"></span>
+                  
+                  <!-- Password Strength Indicator -->
+                  <div class="pwd-strength-container">
+                    <div class="pwd-strength-bar">
+                      <div class="pwd-strength-fill" id="pwd-strength-meter"></div>
+                    </div>
+                    <div class="pwd-strength-label" id="pwd-strength-label">Strength: Weak</div>
+                    <ul class="pwd-criteria-list">
+                      <li id="crit-length" class="invalid">Minimum 8 characters</li>
+                      <li id="crit-num" class="invalid">Contains at least one number</li>
+                      <li id="crit-spec" class="invalid">Contains a special character</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="form-actions">
+                  <button type="button" class="lab-btn btn-primary" id="btn-next-step-1">NEXT PHASE</button>
+                </div>
+              </div>
+
+              <!-- STEP 2 -->
+              <div class="wizard-step" id="form-step-2">
+                <div class="form-group">
+                  <label for="wiz-username">SELECT ACCOUNT NAME</label>
+                  <div class="autocomplete-wrapper">
+                    <input type="text" id="wiz-username" class="form-input" placeholder="Type letters (e.g. peekay, compiler, sysadmin)" autocomplete="off">
+                    <ul class="autocomplete-list" id="username-suggestions" role="listbox" aria-label="Username suggestions"></ul>
+                  </div>
+                </div>
+
+                <!-- Drag zone upload -->
+                <div class="form-group">
+                  <span class="field-label">VERIFICATION DOCUMENT (MOCK PDF)</span>
+                  <div class="drag-upload-zone" id="drag-upload-zone">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="icon-upload">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="17 8 12 3 7 8"></polyline>
+                      <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <span class="upload-prompt">Drag &amp; drop profile documentation here or <button type="button" class="upload-link-btn" id="file-picker-trigger">browse files</button></span>
+                    <input type="file" id="wiz-file-input" style="display:none" accept=".pdf,.png,.jpg">
+                  </div>
+                  <!-- Progress Bar Mock -->
+                  <div class="upload-progress-wrap" id="upload-progress-container" style="display:none">
+                    <div class="upload-filename-row">
+                      <span id="upload-filename-text">document.pdf</span>
+                      <span id="upload-percent-text">0%</span>
+                    </div>
+                    <div class="upload-progress-bar"><div class="upload-progress-fill" id="upload-progress-fill"></div></div>
+                  </div>
+                </div>
+
+                <div class="form-actions">
+                  <button type="button" class="lab-btn btn-outline" id="btn-prev-step-2">PREVIOUS PHASE</button>
+                  <button type="button" class="lab-btn btn-primary" id="btn-next-step-2">NEXT PHASE</button>
+                </div>
+              </div>
+
+              <!-- STEP 3 -->
+              <div class="wizard-step" id="form-step-3">
+                <h4 style="margin-bottom:1rem;font-family:var(--font-mono)">// VERIFICATION REVIEW</h4>
+                <div class="review-details-box">
+                  <div class="review-row"><strong>Email:</strong> <span id="review-email-val">-</span></div>
+                  <div class="review-row"><strong>Username:</strong> <span id="review-user-val">-</span></div>
+                  <div class="review-row"><strong>Document:</strong> <span id="review-doc-val">None uploaded</span></div>
+                </div>
+
+                <div class="form-actions">
+                  <button type="button" class="lab-btn btn-outline" id="btn-prev-step-3">PREVIOUS PHASE</button>
+                  <button type="submit" class="lab-btn btn-primary" id="btn-submit-wizard">TRANSMIT CREDENTIALS</button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ 07 / RESPONSIVE VIEWPORT MORPH SIMULATOR ════ -->
+      <section class="tab-panel" id="panel-responsive" role="tabpanel" aria-labelledby="btn-tab-responsive">
+        <div class="panel-inner animate-fade-in">
+          <div class="view-header">
+            <h2>My Viewport Morph Simulator</h2>
+            <p>I built this viewport simulator to demonstrate how my CSS grid layouts and navigation blocks respond to size constraints. Selecting width presets resizes the inner sandbox container to let you inspect my breakpoint styling in action.</p>
+          </div>
+
+          <div class="dash-card full-width">
+            <div class="morph-toolbar">
+              <span class="toolbar-label">SIMULATOR WIDTH:</span>
+              <div class="toolbar-presets">
+                <button class="preset-btn active" data-width="100%">DESKTOP (100%)</button>
+                <button class="preset-btn" data-width="768px">TABLET (768px)</button>
+                <button class="preset-btn" data-width="375px">MOBILE (375px)</button>
+              </div>
+              <span class="current-width-label" id="current-morph-width">100%</span>
+            </div>
+
+            <!-- Morph view wrapper -->
+            <div class="morph-container-wrap">
+              <div class="morph-sandbox" id="morph-sandbox-node" style="width: 100%">
+                
+                <!-- Mock Page Inside Sandbox -->
+                <div class="mock-page">
+                  <header class="mock-header">
+                    <div class="mock-logo">NEXUS.SYS</div>
+                    <div class="mock-hamburger" aria-hidden="true">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <nav class="mock-nav">
+                      <span>Stack</span>
+                      <span>Timeline</span>
+                      <span>Builds</span>
+                    </nav>
+                  </header>
+
+                  <div class="mock-grid">
+                    <div class="mock-grid-item text-block">
+                      <h3>Universal Compiler Backend</h3>
+                      <p>Built for platform-agnostic optimization, translating structures down to bare metal target code efficiently.</p>
+                    </div>
+                    <div class="mock-grid-item stat-block">
+                      <div class="mock-stat-num">x86_64</div>
+                      <div class="mock-stat-label">DEFAULT PIPELINE</div>
+                    </div>
+                    <div class="mock-grid-item stat-block">
+                      <div class="mock-stat-num">WASM</div>
+                      <div class="mock-stat-label">DEPLOY TARGET</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ 08 / DESIGN SYSTEM SPEC VIEW ════ -->
+      <section class="tab-panel" id="panel-design-system" role="tabpanel" aria-labelledby="btn-tab-design-system">
+        <div class="panel-inner animate-fade-in">
+          <div class="view-header">
+            <h2>My Spacing &amp; Styling System</h2>
+            <p>These are the visual variables, font scales, and design tokens I created to ensure styling consistency across all my portfolios and systems.</p>
+          </div>
+
+          <!-- Spacing & Palette Showcase -->
+          <div class="component-grid">
+            
+            <div class="dash-card">
+              <h3 class="card-title">// SYSTEM SWATCHES</h3>
+              <div class="swatches-grid">
+                <div class="swatch-block">
+                  <div class="swatch-color" style="background:#040405"></div>
+                  <div class="swatch-label">--color-bg<br>#040405</div>
+                </div>
+                <div class="swatch-block">
+                  <div class="swatch-color" style="background:#00ff66"></div>
+                  <div class="swatch-label">--color-accent<br>#00ff66</div>
+                </div>
+                <div class="swatch-block">
+                  <div class="swatch-color" style="background:#f0f0f5"></div>
+                  <div class="swatch-label">--color-text-primary<br>#f0f0f5</div>
+                </div>
+                <div class="swatch-block">
+                  <div class="swatch-color" style="background:#9ba0b0"></div>
+                  <div class="swatch-label">--color-text-muted<br>#9ba0b0</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="dash-card">
+              <h3 class="card-title">// TYPOGRAPHY SCALE</h3>
+              <div class="showcase-content flex-column font-preview-col">
+                <span class="font-preview syne-headline">Headline (Syne) - 24px</span>
+                <span class="font-preview outfit-body">Body text (Outfit) - 14px</span>
+                <span class="font-preview space-mono">Monospace (Space Grotesk) - 11px</span>
+              </div>
+            </div>
+
+            <div class="dash-card full-width">
+              <h3 class="card-title">// SPACER VARIABLES</h3>
+              <div class="showcase-content">
+                <table class="lab-table system-spec-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Variable Name</th>
+                      <th scope="col">Scale Value</th>
+                      <th scope="col">Visual Representation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>--spacing-xs</code></td>
+                      <td>4px</td>
+                      <td><div style="background:var(--color-accent);height:12px;width:4px"></div></td>
+                    </tr>
+                    <tr>
+                      <td><code>--spacing-sm</code></td>
+                      <td>8px</td>
+                      <td><div style="background:var(--color-accent);height:12px;width:8px"></div></td>
+                    </tr>
+                    <tr>
+                      <td><code>--spacing-md</code></td>
+                      <td>16px</td>
+                      <td><div style="background:var(--color-accent);height:12px;width:16px"></div></td>
+                    </tr>
+                    <tr>
+                      <td><code>--spacing-lg</code></td>
+                      <td>24px</td>
+                      <td><div style="background:var(--color-accent);height:12px;width:24px"></div></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- ═══ ACCESSIBLE DIALOG WINDOW (Modal Sandbox) ═══ -->
+  <div id="accessible-modal-demo" class="dialog-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-lbl" aria-hidden="true">
+    <div class="dialog-panel">
+      <div class="dialog-header">
+        <h3 id="modal-title-lbl">// CORE SYSTEM BOOT DIRECTIVE</h3>
+        <button class="dialog-close-btn" id="modal-close-trigger-btn" aria-label="Close dialog">✕</button>
+      </div>
+      <div class="dialog-body">
+        <p>You have launched the accessible validation dialog block. Focus has been trapped inside this frame. Use the Tab key to navigate between the close buttons or press <strong>Esc</strong> to dismiss this container.</p>
+        <div style="margin-top:1.5rem">
+          <button class="lab-btn btn-primary" id="modal-confirm-action-btn">CONFIRM ACTION</button>
+          <button class="lab-btn btn-outline" id="modal-cancel-action-btn">CANCEL ACTION</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ TOAST CONTAINER FOR DYNAMIC INJECTIONS ═══ -->
+  <div class="toast-notification-container" id="toast-wrapper-panel" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ═══ COMMAND PALETTE OVERLAY (Ctrl+K) ═══ -->
+  <div id="command-palette" class="palette-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Command palette search">
+    <div class="palette-panel">
+      <div class="palette-search-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="palette-search-icon">
+          <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="palette-search-input" class="palette-input" placeholder="Type a view name or component to search..." autocomplete="off">
+        <button class="palette-close-btn" id="btn-close-palette" aria-label="Close search">Esc</button>
+      </div>
+      <ul class="palette-results-list" id="palette-results" role="listbox" aria-label="Search results">
+        <!-- Results populated dynamically in labs.js -->
+      </ul>
+    </div>
+  </div>
+
+  <!-- Core Dashboard Interactions Script -->
+  <script src="labs.js"></script>
+</body>
+</html>

@@ -359,25 +359,9 @@ document.addEventListener("DOMContentLoaded", () => {
   requestAnimationFrame(updateSpotlight);
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  // 5. NAV → PORTRAIT HOTSPOT EXPANSION
+  // 5. NAV → PORTRAIT HOTSPOT EXPANSION (REMOVED)
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  navItems.forEach(navItem => {
-    const navId = navItem.id;
-    if (!navHotspots[navId]) return;
-
-    navItem.addEventListener("mouseenter", () => {
-      if (!isHeroVisible()) return;
-      const spot = navHotspots[navId];
-      targetSpot.x = spot.x;
-      targetSpot.y = spot.y;
-      targetSpot.radius = 90;
-    });
-    navItem.addEventListener("mouseleave", () => {
-      if (!isHoveringCard && !isHoveringPortrait) {
-        targetSpot.radius = 0;
-      }
-    });
-  });
+  // Feature disabled to keep the portrait clean when navigating the rail.
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   // 6. HUD CARD INTERACTIONS (hero only)
@@ -392,9 +376,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (key && hotspots[key]) {
         activeHotspotKey = key;
         const spot = hotspots[key];
-        targetSpot.x = spot.x;
-        targetSpot.y = spot.y;
-        targetSpot.radius = 170;
         drawHudConnection(card, spot);
         playSound("lock");
       }
@@ -417,8 +398,7 @@ document.addEventListener("DOMContentLoaded", () => {
       activeHotspotKey = null;
       clearHudConnection();
       playSound("unlock");
-      targetSpot.radius = isHoveringPortrait ? 120 : 0;
-      // Inertia settle
+      // Settle card rotation
       settleCard(card, card._velX || 0, card._velY || 0);
     });
 
