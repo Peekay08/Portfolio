@@ -11,6 +11,13 @@
   --color-accent-rgb:      0, 255, 102;
   --color-accent-dim:      rgba(0, 255, 102, 0.07);
   --color-accent-mid:      rgba(0, 255, 102, 0.15);
+  
+  --color-systems:         #00f3ff;
+  --color-systems-rgb:     0, 243, 255;
+  --color-systems-dim:     rgba(0, 243, 255, 0.07);
+  --color-systems-mid:     rgba(0, 243, 255, 0.15);
+  --color-systems-card-hover: rgba(0, 243, 255, 0.28);
+
   --color-text-primary:    #f0f0f5;
   --color-text-muted:      #9ba0b0;
   --color-text-dim:        #4c4e5c;
@@ -35,6 +42,15 @@
   --spotlight-radius: 0px;
   --spotlight-x: 50%;
   --spotlight-y: 50%;
+}
+
+.systems-accent {
+  --color-accent: var(--color-systems);
+  --color-accent-rgb: var(--color-systems-rgb);
+  --color-accent-dim: var(--color-systems-dim);
+  --color-accent-mid: var(--color-systems-mid);
+  --color-card-hover: var(--color-systems-card-hover);
+  --color-card-border: rgba(0, 243, 255, 0.09);
 }
 
 /* ─── 2. RESET & BASE ───────────────────────────────────────────────────── */
@@ -1728,18 +1744,18 @@ img { display: block; }
     grid-row: 3;
   }
   
-  #project-cpp-exercises {
-    grid-column: 2;
+  #project-github {
+    grid-column: 2 / 4;
     grid-row: 3;
   }
   
-  #project-github {
-    grid-column: 3;
-    grid-row: 3;
+  #project-cpp-exercises {
+    grid-column: 1;
+    grid-row: 4;
   }
   
   #project-academic {
-    grid-column: 1 / 4;
+    grid-column: 2 / 4;
     grid-row: 4;
   }
 }
@@ -2436,11 +2452,11 @@ img { display: block; }
   position: absolute;
   top: 0; left: 0;
   height: 100%;
-  background: linear-gradient(90deg, var(--color-accent), rgba(0,255,102,0.5));
+  background: linear-gradient(90deg, var(--color-accent), rgba(var(--color-accent-rgb), 0.5));
   border-radius: 2px;
   width: 0%;
   transition: width 1.1s cubic-bezier(0.22, 1, 0.36, 1);
-  box-shadow: 0 0 6px rgba(0,255,102,0.4);
+  box-shadow: 0 0 6px rgba(var(--color-accent-rgb), 0.4);
 }
 .skill-category.in-view .skill-cat-bar-fill {
   width: var(--bar-width, 50%);
@@ -2471,7 +2487,7 @@ img { display: block; }
 }
 .skill-category:hover .skill-badge {
   color: var(--color-text-muted);
-  border-color: rgba(0,255,102,0.15);
+  border-color: rgba(var(--color-accent-rgb), 0.15);
 }
 
 /* ─── GITHUB SYSTEM STATUS ──────────────────────────────────────────────── */
@@ -2481,7 +2497,7 @@ img { display: block; }
   letter-spacing: 1px;
 }
 .gh-sys-header {
-  border-bottom: 1px solid rgba(0,255,102,0.15);
+  border-bottom: 1px solid rgba(var(--color-accent-rgb), 0.15);
   padding-bottom: 10px;
   margin-bottom: 14px;
 }
@@ -2533,14 +2549,94 @@ img { display: block; }
   border-radius: 2px;
   width: 0%;
   transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
-  box-shadow: 0 0 4px rgba(0,255,102,0.5);
+  box-shadow: 0 0 4px rgba(var(--color-accent-rgb), 0.5);
 }
 .project-card.in-view .gh-sys-bar-fill,
 .github-stats-card.in-view .gh-sys-bar-fill { width: var(--bar-w, 50%); }
 .gh-sys-divider {
   height: 1px;
-  background: rgba(0,255,102,0.08);
+  background: rgba(var(--color-accent-rgb), 0.08);
   margin: 10px 0;
+}
+
+/* 2-column Layout for GitHub Stats on wide viewports */
+.gh-sys-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  .gh-sys-body {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .gh-sys-col-left {
+    border-right: 1px solid rgba(var(--color-accent-rgb), 0.08);
+    padding-right: 1.5rem;
+  }
+}
+
+/* 2-column Layout for Academic Projects on wide viewports */
+.academic-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.academic-courses-title {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--color-accent);
+  margin-bottom: 8px;
+  display: block;
+}
+.course-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.course-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  padding: 5px 8px;
+  background: rgba(255,255,255,0.01);
+  border: 1px solid rgba(255,255,255,0.03);
+  border-radius: 4px;
+}
+.course-code {
+  color: var(--color-accent);
+  font-weight: 600;
+  width: 50px;
+}
+.course-name {
+  color: var(--color-text-muted);
+  flex: 1;
+  text-align: left;
+  padding-left: 5px;
+}
+.course-grade {
+  color: var(--color-text-dim);
+  font-size: 8px;
+  background: rgba(255,255,255,0.03);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+@media (min-width: 768px) {
+  .academic-body {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .academic-left {
+    border-right: 1px solid rgba(var(--color-accent-rgb), 0.08);
+    padding-right: 1.5rem;
+  }
 }
 .gh-sys-ops-title {
   font-size: 8px;
@@ -2814,20 +2910,20 @@ a.cv-dl-btn:hover { color: #040405; }
 }
 .pipeline-stage-rect {
   fill: rgba(6, 6, 10, 0.9);
-  stroke: rgba(0,255,102,0.15);
+  stroke: rgba(var(--color-accent-rgb), 0.15);
   stroke-width: 1;
   rx: 4;
   transition: stroke 0.3s ease, fill 0.3s ease;
 }
 .pipeline-stage-rect.active {
   stroke: var(--color-accent);
-  fill: rgba(0,255,102,0.06);
+  fill: rgba(var(--color-accent-rgb), 0.06);
 }
 .pipeline-stage-label {
   font-family: 'Space Grotesk', monospace;
   font-size: 7px;
   letter-spacing: 1.5px;
-  fill: rgba(0,255,102,0.5);
+  fill: rgba(var(--color-accent-rgb), 0.5);
   text-anchor: middle;
   text-transform: uppercase;
 }
@@ -2845,7 +2941,7 @@ a.cv-dl-btn:hover { color: #040405; }
   text-anchor: middle;
 }
 .pipeline-connector {
-  stroke: rgba(0,255,102,0.2);
+  stroke: rgba(var(--color-accent-rgb), 0.2);
   stroke-width: 1;
   fill: none;
   stroke-dasharray: 80;
@@ -2853,9 +2949,9 @@ a.cv-dl-btn:hover { color: #040405; }
   transition: stroke-dashoffset 0.4s ease, stroke 0.3s ease;
 }
 .pipeline-connector.drawn { stroke-dashoffset: 0; }
-.pipeline-connector.drawn.active { stroke: rgba(0,255,102,0.6); }
+.pipeline-connector.drawn.active { stroke: rgba(var(--color-accent-rgb), 0.6); }
 .pipeline-arrow-head {
-  fill: rgba(0,255,102,0.3);
+  fill: rgba(var(--color-accent-rgb), 0.3);
   transition: fill 0.3s ease, opacity 0.3s ease;
   opacity: 0;
 }
@@ -2863,7 +2959,7 @@ a.cv-dl-btn:hover { color: #040405; }
 .pipeline-arrow-head.active { fill: var(--color-accent); }
 /* Active stage glow pulse */
 .pipeline-active-glow {
-  fill: rgba(0,255,102,0.08);
+  fill: rgba(var(--color-accent-rgb), 0.08);
   stroke: var(--color-accent);
   stroke-width: 1.5;
   rx: 4;
@@ -2904,6 +3000,14 @@ a.cv-dl-btn:hover { color: #040405; }
 @media (max-width: 1100px) {
   .projects-grid { grid-template-columns: 1fr 1fr; }
   .project-featured { grid-column: 1 / -1; }
+  
+  /* Reset explicit bento coordinates to prevent horizontal page overflow on tablet/mobile */
+  #project-nexus, #project-labs, #project-portfolio, #project-kitchen,
+  #project-persol, #project-github, #project-cpp-exercises, #project-academic {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+
   .stack-layout { grid-template-columns: 1fr; }
   .figma-grid { grid-template-columns: repeat(3, 1fr); }
 
@@ -2950,7 +3054,7 @@ a.cv-dl-btn:hover { color: #040405; }
 
 /* ── Phone landscape / small tablet (≤768px) ────────────────────────────── */
 @media (max-width: 768px) {
-  /* Hero — stack portrait behind text */
+  /* Hero — top background portrait layout */
   .hero-section {
     display: flex;
     flex-direction: column;
@@ -2958,30 +3062,59 @@ a.cv-dl-btn:hover { color: #040405; }
     height: auto;
     min-height: 100svh;
     padding-top: var(--header-h);
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
   }
 
   .portrait-container {
-    position: relative;
-    top: auto; left: auto;
-    transform: none;
-    width: 100%;
-    height: 55vw;
-    max-height: 340px;
-    margin: 0 auto;
-    order: -1;
+    position: absolute;
+    top: 5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 65vw;
+    height: 65vw;
+    max-width: 260px;
+    max-height: 260px;
+    z-index: 1;
+    opacity: 0.65 !important;
     pointer-events: none;
   }
-  .portrait-img { object-position: center 12%; }
-
+  .portrait-img {
+    position: absolute;
+    width: 100%; height: 100%;
+    border-radius: 8px;
+    border: none;
+    box-shadow: none;
+    object-fit: cover;
+    object-position: center 20%;
+  }
+  .portrait-base {
+    display: block;
+    filter: grayscale(100%) contrast(1.1) brightness(0.65) !important;
+    opacity: 1 !important;
+  }
+  .portrait-color {
+    display: none;
+  }
+  .portrait-fade-overlay {
+    display: block;
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(to bottom, transparent 35%, var(--color-bg) 95%);
+    border-radius: 8px;
+  }
   .hero-vignette {
-    background: radial-gradient(ellipse at 50% 80%, transparent 10%, var(--color-bg) 70%);
+    display: none;
   }
 
   .hero-content {
     position: relative;
     z-index: 10;
     max-width: 100%;
-    padding: 1.2rem 1.5rem 1rem;
+    padding: 1.25rem;
+    margin-top: 180px;
+    text-align: center;
   }
 
   .main-title {
@@ -2992,13 +3125,21 @@ a.cv-dl-btn:hover { color: #040405; }
   .hero-hud-cluster {
     position: relative;
     bottom: auto; left: auto;
-    padding: 0 1.5rem 2rem;
+    padding: 0 1.25rem 2rem;
     max-width: 100%;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 8px;
   }
   .hud-info-card { flex: 1 1 calc(50% - 4px); min-width: 140px; }
+
+  /* Section inner padding and project cards for <=768px */
+  .section-inner {
+    padding: var(--section-py) 1.25rem;
+  }
+  .project-card {
+    padding: 1.25rem;
+  }
 
   /* Scroll indicator hidden on mobile */
   .scroll-indicator { display: none; }
@@ -3035,18 +3176,23 @@ a.cv-dl-btn:hover { color: #040405; }
 @media (max-width: 640px) {
   :root { --nav-w: 0px; }
   .nav-rail { display: none; }
-  .hud-header { padding-left: 1rem; }
+  .hud-header { padding: 0 1rem; }
   .hud-code { display: none; }
 
   .main-title { font-size: clamp(2.4rem, 11vw, 3.5rem); letter-spacing: -2px; }
   .section-title { font-size: clamp(1.6rem, 7vw, 2.5rem); }
 
   .hero-content { padding: 1rem 1rem 0.5rem; }
-  .hero-hud-cluster { left: 1rem; padding: 0 1rem 1.5rem; }
+  .hero-hud-cluster { left: auto; padding: 0 1rem 1.5rem; }
   .hud-info-card { flex: 1 1 100%; }
 
-  .figma-grid { grid-template-columns: 1fr 1fr; }
-  #figma-card-3 { grid-column: 1 / -1; }
+  .figma-grid { grid-template-columns: 1fr; }
+  #figma-card-3 { grid-column: auto; }
+
+  /* Header controls mobile spacing - hide CV and text on phone sizes */
+  .hud-controls .print-btn { display: none; }
+  .hud-controls .sfx-btn span { display: none; }
+  .hud-controls .sfx-btn { padding: 5px 8px; }
 
   /* Skills categories — full width */
   .skill-cat-header { flex-direction: column; align-items: flex-start; gap: 3px; }
@@ -3080,12 +3226,15 @@ a.cv-dl-btn:hover { color: #040405; }
   .gh-sys-bar { width: 35px; }
   .gh-sys-repo-date { display: none; } /* save space on phones */
 
-  /* Hero CTA stack on mobile */
+  /* Hero CTA stack and form submit on mobile */
   .hero-ctas { flex-direction: column; gap: 8px; }
-  .cta-primary, .cta-secondary { width: 100%; justify-content: center; }
+  .cta-primary, .cta-secondary, .form-submit { width: 100%; justify-content: center; }
+
+  /* Contact link handle wrapping */
+  .cl-handle { word-break: break-all; font-size: clamp(0.75rem, 3.5vw, 0.85rem); }
 
   /* Section inner padding */
-  .section-inner { padding: var(--section-py) 1.2rem; }
+  .section-inner { padding: var(--section-py) 1rem; }
 
   /* Pipeline — allow scrolling */
   .nexus-svg-pipeline { min-width: 520px; }
