@@ -842,9 +842,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  // 19. PROJECT CARD — sound on hover
+  // 19. PROJECT CARD & LAB PREVIEWS — sound on hover
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  document.querySelectorAll(".project-card").forEach(card => {
+  document.querySelectorAll(".project-card, .lab-preview-card").forEach(card => {
     card.addEventListener("mouseenter", () => playSound("hover"));
   });
 
